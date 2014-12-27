@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <math.h>
 
-#include "GanitaGraph.cpp"
+#include "GanitaGraph.hpp"
 
 int main(int argc, char *argv[])
 {

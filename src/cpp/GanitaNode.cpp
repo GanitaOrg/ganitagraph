@@ -1,23 +1,8 @@
-// g++ -O3 GanitaNode.c -o GanitaNode -lm
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <cmath>
-#include <sstream>
+// Ganita node class.
 
-using namespace std;
+#include "GanitaNode.hpp"
 
-class GanitaNode
-{
-private:
-  vector<string> order_name;
-  long order_code;
-public:
-  GanitaNode();
-};
-
-GanitaEdge::GanitaNode()
+GanitaNode::GanitaNode()
 {
   order_name.push_back("Index");
   order_code = 0;

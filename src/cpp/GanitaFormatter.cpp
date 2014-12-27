@@ -1,27 +1,6 @@
-// g++ -O3 neo4jFormatter.c -o neo4jFormatter -lm
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <cmath>
-#include <sstream>
+// Ganita formatter class for Neo4j or other graph db. 
 
-using namespace std;
-
-class Neo4jFormatter
-{
-private:
-  long total;
-  vector<string> nodes1;
-  vector<string> nodes2;
-  string node_csv;
-  string rel_csv;
-public:
-  Neo4jFormatter();
-  int readCSV(ifstream myfile);
-  long readCSV(char *myfilestr);
-  long readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3);
-};
+#include "GanitaFormatter.hpp"
 
 Neo4jFormatter::Neo4jFormatter()
 {
@@ -60,9 +39,11 @@ long Neo4jFormatter::readCSV(char *myfilestr)
   vector<long> counts2;
   string tmp1, tmp2;
   long row;
-  int ii;
+  unsigned int ii;
   ofstream myout1(node_csv.c_str());
   ofstream myout2(rel_csv.c_str());
+
+  to = 0; from = 0;
 
   if((!myout1.is_open()) || (!myout2.is_open())){
     cout<<"Could not open output files!"<<endl;
@@ -177,9 +158,12 @@ long Neo4jFormatter::readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
   vector<long> counts2;
   string tmp1, tmp2;
   long row;
-  int ii, ntokens;
+  unsigned int ii;
+  int ntokens;
   ofstream myout1(myfilestr2);
   ofstream myout2(myfilestr3);
+
+  to = 0; from = 0;
 
   if((!myout1.is_open()) || (!myout2.is_open())){
     cout<<"Could not open output files!"<<endl;

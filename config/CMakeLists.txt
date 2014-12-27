@@ -7,7 +7,7 @@ project(GanitaGraph CXX C)
 
 ## Version
 set(GanitaGraph_VERSION_MAJOR "0")
-set(GanitaGraph_VERSION_MINOR "1")
+set(GanitaGraph_VERSION_MINOR "3")
 set(GanitaGraph_VERSION_PATCH "0")
 
 cmake_minimum_required(VERSION 2.8)
@@ -29,12 +29,20 @@ cmake_minimum_required(VERSION 2.8)
 include_directories(../src/cpp)
 # link_directories (../lib)
 
+add_library(GanitaGraph ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+
+target_include_directories (GanitaGraph PUBLIC ../src/cpp)
+
 add_executable(gg2 ../src/drivers/gg2.cc)
 add_test(gg2 ../src/drivers/gg2.cc)
 add_executable(ganitaGraph ../src/drivers/ganitaGraph.cc)
 add_test(ganitaGraph ../src/drivers/ganitaGraph.cc)
 
+target_link_libraries (ganitaGraph LINK_PUBLIC GanitaGraph)
+target_link_libraries (gg2 LINK_PUBLIC GanitaGraph)
+
 install(TARGETS ganitaGraph DESTINATION bin)
+install(TARGETS GanitaGraph DESTINATION lib)
 
 # if(OpenMP_CXX_FLAGS)
 #   set_property(

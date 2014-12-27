@@ -22,10 +22,20 @@ private:
   vector<long> si;
   string node_csv;
   string rel_csv;
+  // Initially edges can be loaded into gg_rels. 
+  // gg_rels stores edges as a single array 
+  // with even indices pointing to the originating node 
+  // and odd indices pointing to the destination node. 
   long *gg_rels;
+  // gg_edges re-organizes the edges. 
+  // All edges are packed into a single array. 
+  // It is ordered according to source node and then 
+  // the destination nodes for each source node. 
   long *gg_edges;
   double *gg_edge_property;
   //long *gg_edges2;
+  // tv is the total number of vertices or nodes. 
+  // te is the total number of edges. 
   long tv, te;
   int compute_edge_flag;
   vector<long> trace[2];
