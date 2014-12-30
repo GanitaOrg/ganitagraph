@@ -65,10 +65,11 @@ add_executable(ganitagraph1 ../src/drivers/gg1.cc)
 target_link_libraries (ganitagraph1 LINK_PUBLIC GanitaGraph m)
 target_link_libraries (ganitagraph2 LINK_PUBLIC GanitaGraph m)
 
-install(TARGETS ganitagraph1 DESTINATION ganita/bin)
-install(TARGETS ganitagraph2 DESTINATION ganita/bin)
-install(TARGETS GanitaGraph DESTINATION ganita/lib)
-install(DIRECTORY ../src/include DESTINATION ganita)
+install(TARGETS ganitagraph1 DESTINATION bin)
+install(TARGETS ganitagraph2 DESTINATION bin)
+install(TARGETS GanitaGraph DESTINATION lib)
+FILE(GLOB files "../src/include/*")
+install(FILES ${files} DESTINATION include/ganita)
 
 # if(OpenMP_CXX_FLAGS)
 #   set_property(
