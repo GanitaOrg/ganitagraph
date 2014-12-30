@@ -8,7 +8,7 @@ project(GanitaGraph CXX C)
 ## Version
 set(GanitaGraph_VERSION_MAJOR "0")
 set(GanitaGraph_VERSION_MINOR "3")
-set(GanitaGraph_VERSION_PATCH "1")
+set(GanitaGraph_VERSION_PATCH "2")
 
 cmake_minimum_required(VERSION 2.8)
 
@@ -53,23 +53,22 @@ endif()
 
 # configure_file(config.h.in config.h)
 
-include_directories(../src/cpp)
+include_directories(../src/include)
 
 add_library(GanitaGraph ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
 target_include_directories (GanitaGraph PUBLIC ../src/cpp)
 
-add_executable(gg2 ../src/drivers/gg2.cc)
-add_test(gg2 ../src/drivers/gg2.cc)
-add_executable(gg1 ../src/drivers/gg1.cc)
-add_test(gg1 ../src/drivers/gg1.cc)
+add_executable(ganitagraph2 ../src/drivers/gg2.cc)
+add_executable(ganitagraph1 ../src/drivers/gg1.cc)
 
-target_link_libraries (gg1 LINK_PUBLIC GanitaGraph m)
-target_link_libraries (gg2 LINK_PUBLIC GanitaGraph m)
+target_link_libraries (ganitagraph1 LINK_PUBLIC GanitaGraph m)
+target_link_libraries (ganitagraph2 LINK_PUBLIC GanitaGraph m)
 
-install(TARGETS gg1 DESTINATION bin)
-install(TARGETS gg2 DESTINATION bin)
-install(TARGETS GanitaGraph DESTINATION lib)
+install(TARGETS ganitagraph1 DESTINATION ganita/bin)
+install(TARGETS ganitagraph2 DESTINATION ganita/bin)
+install(TARGETS GanitaGraph DESTINATION ganita/lib)
+install(DIRECTORY ../src/include DESTINATION ganita)
 
 # if(OpenMP_CXX_FLAGS)
 #   set_property(
