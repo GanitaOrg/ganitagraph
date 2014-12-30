@@ -1,6 +1,6 @@
 // Ganita node class.
 
-#include "GanitaNode.hpp"
+#include "ganita/graph/GanitaNode.hpp"
 
 GanitaNode::GanitaNode()
 {

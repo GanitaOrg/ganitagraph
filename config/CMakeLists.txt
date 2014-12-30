@@ -68,8 +68,8 @@ target_link_libraries (ganitagraph2 LINK_PUBLIC GanitaGraph m)
 install(TARGETS ganitagraph1 DESTINATION bin)
 install(TARGETS ganitagraph2 DESTINATION bin)
 install(TARGETS GanitaGraph DESTINATION lib)
-FILE(GLOB files "../src/include/*")
-install(FILES ${files} DESTINATION include/ganita)
+FILE(GLOB files "../src/include/ganita/graph/*")
+install(FILES ${files} DESTINATION include/ganita/graph)
 
 # if(OpenMP_CXX_FLAGS)
 #   set_property(

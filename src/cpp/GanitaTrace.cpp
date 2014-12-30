@@ -1,6 +1,6 @@
 // Ganita trace class.
 
-#include "GanitaTrace.hpp"
+#include "ganita/graph/GanitaTrace.hpp"
 
 GanitaTrace::GanitaTrace()
 {

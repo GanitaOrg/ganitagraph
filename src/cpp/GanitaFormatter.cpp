@@ -1,6 +1,6 @@
 // Ganita formatter class for Neo4j or other graph db. 
 
-#include "GanitaFormatter.hpp"
+#include "ganita/graph/GanitaFormatter.hpp"
 
 Neo4jFormatter::Neo4jFormatter()
 {

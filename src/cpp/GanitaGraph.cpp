@@ -1,6 +1,6 @@
 // Graph engine
 
-#include "GanitaGraph.hpp"
+#include "ganita/graph/GanitaGraph.hpp"
 
 GanitaGraph::GanitaGraph()
 {

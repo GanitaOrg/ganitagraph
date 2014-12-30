@@ -1,6 +1,6 @@
 // Ganita edge class
 
-#include "GanitaEdge.hpp"
+#include "ganita/graph/GanitaEdge.hpp"
 
 GanitaEdge::GanitaEdge()
 {
