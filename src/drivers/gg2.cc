@@ -30,6 +30,6 @@ int main(int argc, char *argv[])
   //gg.setMinTrace(5);
   //gg.recommenderBasic(3,1);
 
-  return(1);
+  exit(1);
 }
 

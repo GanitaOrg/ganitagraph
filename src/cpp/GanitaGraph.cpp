@@ -908,7 +908,7 @@ long GanitaGraph::ggAllocWeights(long tt)
   return(1);
 }
 
-long GanitaGraph::ggDeAlloc(long tv)
+long GanitaGraph::ggDeAlloc(void)
 {
   //long i;
   //for(i = 0; i < tv; i++) {

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <sstream>
+#include <cstdlib>
 #include <cmath>
 #include <cstring>
 
@@ -51,7 +52,7 @@ public:
   long ggInitWeighted(char *myfilestr,char *myfilestr2,char *myfilestr3);
   long ggAllocRels(long te);
   long ggAllocWeights(long te);
-  long ggDeAlloc(long tv);
+  long ggDeAlloc(void);
   long createEdges(char *myfilestr);
   long createWeightedEdges(char *myfilestr);
   long dumpIndices();
