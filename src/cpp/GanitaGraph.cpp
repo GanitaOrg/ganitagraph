@@ -9,6 +9,7 @@ GanitaGraph::GanitaGraph()
   compute_edge_flag = 0;
   node_csv.assign("nodes.csv");
   rel_csv.assign("rels.csv");
+  kink = 0;
 }
 
 int GanitaGraph::readCSV(ifstream myfile)
