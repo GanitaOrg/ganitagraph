@@ -8,7 +8,7 @@ project(GanitaGraph CXX C)
 ## Version
 set(GanitaGraph_VERSION_MAJOR "0")
 set(GanitaGraph_VERSION_MINOR "3")
-set(GanitaGraph_VERSION_PATCH "2")
+set(GanitaGraph_VERSION_PATCH "3")
 
 cmake_minimum_required(VERSION 2.8)
 
@@ -55,9 +55,13 @@ endif()
 
 include_directories(../src/include)
 
-add_library(GanitaGraph ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+# add_library(GanitaGraph ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
-target_include_directories (GanitaGraph PUBLIC ../src/cpp)
+add_library(GanitaGraph SHARED ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+
+add_library(GanitaGraphStatic STATIC ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+
+target_include_directories (GanitaGraph PUBLIC ../src/include ../src/cpp)
 
 add_executable(ganitagraph2 ../src/drivers/gg2.cc)
 add_executable(ganitagraph1 ../src/drivers/gg1.cc)
@@ -68,6 +72,7 @@ target_link_libraries (ganitagraph2 LINK_PUBLIC GanitaGraph m)
 install(TARGETS ganitagraph1 DESTINATION bin)
 install(TARGETS ganitagraph2 DESTINATION bin)
 install(TARGETS GanitaGraph DESTINATION lib)
+install(TARGETS GanitaGraphStatic DESTINATION lib)
 FILE(GLOB files "../src/include/ganita/graph/*")
 install(FILES ${files} DESTINATION include/ganita/graph)
 
