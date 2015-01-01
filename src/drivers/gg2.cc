@@ -6,11 +6,11 @@
 #include <stdint.h>
 #include <math.h>
 
-#include "ganita/graph/GanitaGraph.hpp"
+#include "ganita/graph/GanitaBigraph.hpp"
 
 int main(int argc, char *argv[])
 {
-  GanitaGraph gg;
+  GanitaBigraph gg;
 
   if(argc < 3){
     cout<<"Usage: node-file edge-file"<<endl;;

@@ -6,12 +6,12 @@
 #include <stdint.h>
 #include <math.h>
 
-#include "ganita/graph/GanitaGraph.hpp"
+#include "ganita/graph/GanitaBigraph.hpp"
 
 int main(int argc, char *argv[])
 {
   //long total;
-  GanitaGraph gg;
+  GanitaBigraph gg;
 
   if(argc < 4){
     cout<<"Usage: input-file node-file edge-file"<<endl;;

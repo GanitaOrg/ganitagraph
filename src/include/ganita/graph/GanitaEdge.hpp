@@ -11,10 +11,12 @@ using namespace std;
 class GanitaEdge
 {
 private:
-  vector<string> order_name;
-  long order_code;
+  unsigned long id;
+  unsigned long value;
 public:
-  GanitaEdge();
-  long minCheck();
+  GanitaEdge(void);
+  GanitaEdge(unsigned long ii, unsigned long vv);
+  unsigned long returnId(void);
+  unsigned long returnValue(void);
 };
 

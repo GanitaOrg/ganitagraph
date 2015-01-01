@@ -2,14 +2,25 @@
 
 #include "ganita/graph/GanitaEdge.hpp"
 
-GanitaEdge::GanitaEdge()
+GanitaEdge::GanitaEdge(void)
 {
-  order_name.push_back("Node-Index");
-  order_code = 0;
+  id = 0;
+  value = 0;
 }
 
-long GanitaEdge::minCheck()
+GanitaEdge::GanitaEdge(unsigned long ii, unsigned long vv)
 {
-  return order_code;
+  id = ii;
+  value = vv;
+}
+
+unsigned long GanitaEdge::returnId(void)
+{
+  return(id);
+}
+
+unsigned long GanitaEdge::returnValue(void)
+{
+  return(value);
 }
 

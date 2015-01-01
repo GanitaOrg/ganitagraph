@@ -7,8 +7,8 @@ project(GanitaGraph CXX C)
 
 ## Version
 set(GanitaGraph_VERSION_MAJOR "0")
-set(GanitaGraph_VERSION_MINOR "3")
-set(GanitaGraph_VERSION_PATCH "3")
+set(GanitaGraph_VERSION_MINOR "4")
+set(GanitaGraph_VERSION_PATCH "0")
 
 cmake_minimum_required(VERSION 2.8)
 
@@ -57,9 +57,9 @@ include_directories(../src/include)
 
 # add_library(GanitaGraph ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
-add_library(GanitaGraph SHARED ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+add_library(GanitaGraph SHARED ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaGraphStage.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
-add_library(GanitaGraphStatic STATIC ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+add_library(GanitaGraphStatic STATIC ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaGraphStage.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
 target_include_directories (GanitaGraph PUBLIC ../src/include ../src/cpp)
 
@@ -73,7 +73,7 @@ install(TARGETS ganitagraph1 DESTINATION bin)
 install(TARGETS ganitagraph2 DESTINATION bin)
 install(TARGETS GanitaGraph DESTINATION lib)
 install(TARGETS GanitaGraphStatic DESTINATION lib)
-FILE(GLOB files "../src/include/ganita/graph/*")
+FILE(GLOB files "../src/include/ganita/graph/*.hpp")
 install(FILES ${files} DESTINATION include/ganita/graph)
 
 # if(OpenMP_CXX_FLAGS)
