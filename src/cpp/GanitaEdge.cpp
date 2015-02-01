@@ -24,3 +24,15 @@ unsigned long GanitaEdge::returnValue(void)
   return(value);
 }
 
+unsigned long GanitaEdge::setId(unsigned long ii)
+{
+  id = ii;
+  return(id);
+}
+
+unsigned long GanitaEdge::setValue(unsigned long val)
+{
+  value = val;
+  return(value);
+}
+

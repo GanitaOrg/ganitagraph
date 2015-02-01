@@ -34,8 +34,13 @@ public:
   unsigned long setId(unsigned long ii);
   unsigned long setValue(unsigned long val);
   unsigned long addEdge(unsigned long val);
+  unsigned long addEdge(unsigned long ii, unsigned long val);
   unsigned long setEdge(string edgeval);
+  int setEdgeId(unsigned long ee, unsigned long ii);
+  int setEdgeValue(unsigned long ee, unsigned long val);
   unsigned long edgestrToMax(string edgeval);
   unsigned long dumpEdgeValues(void);
+  unsigned long dumpEdgeAll(void);
+  int returnEdge(unsigned long ee, GanitaEdge& ed);
 };
 

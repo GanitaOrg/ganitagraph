@@ -56,6 +56,15 @@ unsigned long GanitaNode::addEdge(unsigned long val)
   return((unsigned long)edge.size());
 }
 
+unsigned long GanitaNode::addEdge(unsigned long ii, unsigned long val)
+{
+  GanitaEdge tmpEdge(ii, val);
+
+  edge.push_back(tmpEdge);
+
+  return((unsigned long)edge.size());
+}
+
 // Similar to previous function but estimates 
 // temporary memory for token. 
 unsigned long GanitaNode::setEdge(string edgeval){
@@ -98,5 +107,45 @@ unsigned long GanitaNode::dumpEdgeValues(void)
   }
 
   return((unsigned long) edge.size());
+}
+
+unsigned long GanitaNode::dumpEdgeAll(void)
+{
+  if(edge.size() <= 0) return(0);
+  unsigned long ii;
+  cout<<edge[0].returnId()<<","<<edge[0].returnValue();
+  for(ii=1; ii<(unsigned long)edge.size(); ii++){
+    cout<<"|"<<edge[ii].returnId()<<","<<edge[ii].returnValue();
+  }
+  cout<<endl;
+
+  return((unsigned long) edge.size());
+}
+
+int GanitaNode::returnEdge(unsigned long ee, GanitaEdge& ed)
+{
+  if(edge.size() > 0){
+    ed = edge[ee % edge.size()];
+    return(1);
+  }
+  return(0);
+}
+
+int GanitaNode::setEdgeId(unsigned long ee, unsigned long ii)
+{
+  if(edge.size() > 0){
+    edge[ee % edge.size()].setId(ii);
+    return(1);
+  }
+  return(0);
+}
+
+int GanitaNode::setEdgeValue(unsigned long ee, unsigned long val)
+{
+  if(edge.size() > 0){
+    edge[ee % edge.size()].setValue(val);
+    return(1);
+  }
+  return(0);
 }
 

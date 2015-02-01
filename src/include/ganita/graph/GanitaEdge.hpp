@@ -18,5 +18,7 @@ public:
   GanitaEdge(unsigned long ii, unsigned long vv);
   unsigned long returnId(void);
   unsigned long returnValue(void);
+  unsigned long setId(unsigned long ii);
+  unsigned long setValue(unsigned long val);
 };
 
