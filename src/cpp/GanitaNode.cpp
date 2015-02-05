@@ -149,3 +149,8 @@ int GanitaNode::setEdgeValue(unsigned long ee, unsigned long val)
   return(0);
 }
 
+unsigned long GanitaNode::returnNumEdges(void)
+{
+  return(edge.size());
+}
+

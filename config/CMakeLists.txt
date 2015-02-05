@@ -16,10 +16,10 @@ cmake_minimum_required(VERSION 2.8)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "CC")
   set(warnings "-Wall -Wextra")
-  set(cmake_cxx_extra "-std=c++11")
+  set(cmake_cxx_extra "-std=c++0x")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set(warnings "-Wall -Wextra")
-  set(cmake_cxx_extra "-std=c++11")
+  set(cmake_cxx_extra "-std=c++0x")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(warnings "-Wall -Wextra")
   set(cmake_cxx_extra "-stdlib=libc++")
@@ -57,9 +57,9 @@ include_directories(../src/include)
 
 # add_library(GanitaGraph ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
-add_library(GanitaGraph SHARED ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+add_library(GanitaGraph SHARED ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBuffer.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
-add_library(GanitaGraphStatic STATIC ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+add_library(GanitaGraphStatic STATIC ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBuffer.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
 target_include_directories (GanitaGraph PUBLIC ../src/include ../src/cpp)
 

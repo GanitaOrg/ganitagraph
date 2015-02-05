@@ -4,6 +4,7 @@ GanitaGraph::GanitaGraph(void)
 {
   id = 0;
   value = 0;
+  memory_estimate = GANITA_GRAPH_MEM_BASE;
 }
 
 GanitaGraph::GanitaGraph(int verbose)
@@ -11,6 +12,7 @@ GanitaGraph::GanitaGraph(int verbose)
   id = 0;
   value = 0;
   verbosity = verbose;
+  memory_estimate = GANITA_GRAPH_MEM_BASE;
 }
 
 unsigned long GanitaGraph::set(unsigned long ii, unsigned long val)
@@ -72,5 +74,19 @@ GanitaNode *GanitaGraph::returnNode(unsigned long nn)
   }
 
   return(node[nn % node.size()].get());
+}
+
+unsigned long GanitaGraph::computeMemoryEstimate(void)
+{
+  unsigned long ii;
+
+  memory_estimate = GANITA_GRAPH_MEM_BASE;
+
+  for(ii=0; ii<node.size(); ii++){
+    memory_estimate += sizeof(GanitaNode) + 
+      (node[ii]->returnNumEdges())*sizeof(GanitaEdge);
+  }
+
+  return(memory_estimate);
 }
 

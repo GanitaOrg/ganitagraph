@@ -26,6 +26,7 @@ private:
   unsigned long value;
   vector<GanitaEdge> edge;
   char delim;
+  vector<unsigned char> property;
 public:
   GanitaNode();
   GanitaNode(unsigned long ii, unsigned val, string edgeval);
@@ -42,5 +43,6 @@ public:
   unsigned long dumpEdgeValues(void);
   unsigned long dumpEdgeAll(void);
   int returnEdge(unsigned long ee, GanitaEdge& ed);
+  unsigned long returnNumEdges(void);
 };
 

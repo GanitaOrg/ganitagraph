@@ -5,6 +5,10 @@ using namespace std;
 
 #include "ganita/graph/GanitaNode.hpp"
 
+#ifndef GANITA_GRAPH_MEM_BASE
+#define GANITA_GRAPH_MEM_BASE 80
+#endif
+
 class GanitaGraph
 {
 protected:
@@ -12,6 +16,7 @@ protected:
   unsigned long id;
   unsigned long value;
   int verbosity;
+  unsigned long memory_estimate;
 public:
   GanitaGraph(void);
   GanitaGraph(int verbose);
@@ -22,5 +27,6 @@ public:
   unsigned long addNode(string edgeval);
   unsigned long returnNumNodes(void);
   GanitaNode *returnNode(unsigned long nn);
+  unsigned long computeMemoryEstimate(void);
 };
 

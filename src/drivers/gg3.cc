@@ -24,8 +24,16 @@ int main(int argc, char *argv[])
   gg.addNew(21);
   gg.addNew(8);
   gg.addNew(21);
+  gg.addNew(17);
   gg.dumpList();
   cout<<"\nReached end"<<endl;
+  
+  cout<<"Size of GanitaNode: "<<sizeof(GanitaNode)<<endl;
+  cout<<"Size of GanitaEdge: "<<sizeof(GanitaEdge)<<endl;
+  cout<<"Size of GanitaGraph: "<<sizeof(GanitaGraph)<<endl;
+  cout<<"Size of GanitaGraphList: "<<sizeof(GanitaGraphList)<<endl;
+
+  cout<<"Memory estimate: "<<gg.computeMemoryEstimate()<<endl;
 
   exit(1);
 }
