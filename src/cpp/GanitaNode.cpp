@@ -33,6 +33,17 @@ unsigned long GanitaNode::returnValue(void)
   return(value);
 }
 
+string GanitaNode::returnProperty(void)
+{
+  return(*property);
+}
+
+unsigned long GanitaNode::initProperty(string prop)
+{
+  property = new string(prop);
+  return(property->size());
+}
+
 unsigned long GanitaNode::setId(unsigned long ii)
 {
   id = ii;

@@ -26,12 +26,14 @@ private:
   unsigned long value;
   vector<GanitaEdge> edge;
   char delim;
-  vector<unsigned char> property;
+  string *property;
 public:
   GanitaNode();
   GanitaNode(unsigned long ii, unsigned val, string edgeval);
   unsigned long returnId(void);
   unsigned long returnValue(void);
+  string returnProperty(void);
+  unsigned long initProperty(string prop);
   unsigned long setId(unsigned long ii);
   unsigned long setValue(unsigned long val);
   unsigned long addEdge(unsigned long val);
