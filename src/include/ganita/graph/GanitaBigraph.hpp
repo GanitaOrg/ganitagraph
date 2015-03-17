@@ -15,59 +15,59 @@ using namespace std;
 class GanitaBigraph:public GanitaGraph
 {
 private:
-  long total;
+  int64_t total;
   vector<string> nodes1;
   vector<string> nodes2;
-  vector<long> counts1;
-  vector<long> counts2;
-  vector<long> ti;
-  vector<long> ti2;
-  vector<long> si;
+  vector<int64_t> counts1;
+  vector<int64_t> counts2;
+  vector<int64_t> ti;
+  vector<int64_t> ti2;
+  vector<int64_t> si;
   string node_csv;
   string rel_csv;
   // Initially edges can be loaded into gg_rels. 
   // gg_rels stores edges as a single array 
   // with even indices pointing to the originating node 
   // and odd indices pointing to the destination node. 
-  long *gg_rels;
+  int64_t *gg_rels;
   // gg_edges re-organizes the edges. 
   // All edges are packed into a single array. 
   // It is ordered according to source node and then 
   // the destination nodes for each source node. 
-  long *gg_edges;
+  int64_t *gg_edges;
   double *gg_edge_property;
-  //long *gg_edges2;
+  //int64_t *gg_edges2;
   // tv is the total number of vertices or nodes. 
   // te is the total number of edges. 
-  long tv, te;
+  int64_t tv, te;
   int compute_edge_flag;
-  vector<long> trace[2];
-  long kink;
+  vector<int64_t> trace[2];
+  int64_t kink;
 public:
   GanitaBigraph();
   int readCSV(ifstream myfile);
-  long readCSV(char *myfilestr);
-  long readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3);
-  long readWeightedEdges(char *mynodefilestr, char *myedgefilestr);
-  long getTotalCSV(char *myfilestr,char *myfilestr2,char *myfilestr3);
-  long ggInit(char *myfilestr,char *myfilestr2,char *myfilestr3);
-  long ggInitWeighted(char *myfilestr,char *myfilestr2,char *myfilestr3);
-  long ggAllocRels(long te);
-  long ggAllocWeights(long te);
-  long ggDeAlloc(void);
-  long createEdges(char *myfilestr);
-  long createWeightedEdges(char *myfilestr);
-  long dumpIndices();
-  long computeEdges();
-  long dumpEdges();
-  long dumpRels();
-  long setMinTrace(long len);
-  long recommenderBasic(long ncom, long check_4_cycle);
-  long checkCycle4(long ncom);
-  long nodeDotProd(long nn1, long nn2);
-  long nodeDotProd(long nn1);
-  long nodeDotProd2(long nn1, long nn2, long tt);
-  long nodeDotProd2(long nn1, long tt);
-  long returnNumNodes();
+  int64_t readCSV(char *myfilestr);
+  int64_t readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3);
+  int64_t readWeightedEdges(char *mynodefilestr, char *myedgefilestr);
+  int64_t getTotalCSV(char *myfilestr,char *myfilestr2,char *myfilestr3);
+  int64_t ggInit(char *myfilestr,char *myfilestr2,char *myfilestr3);
+  int64_t ggInitWeighted(char *myfilestr,char *myfilestr2,char *myfilestr3);
+  int64_t ggAllocRels(int64_t te);
+  int64_t ggAllocWeights(int64_t te);
+  int64_t ggDeAlloc(void);
+  int64_t createEdges(char *myfilestr);
+  int64_t createWeightedEdges(char *myfilestr);
+  int64_t dumpIndices();
+  int64_t computeEdges();
+  int64_t dumpEdges();
+  int64_t dumpRels();
+  int64_t setMinTrace(int64_t len);
+  int64_t recommenderBasic(int64_t ncom, int64_t check_4_cycle);
+  int64_t checkCycle4(int64_t ncom);
+  int64_t nodeDotProd(int64_t nn1, int64_t nn2);
+  int64_t nodeDotProd(int64_t nn1);
+  int64_t nodeDotProd2(int64_t nn1, int64_t nn2, int64_t tt);
+  int64_t nodeDotProd2(int64_t nn1, int64_t tt);
+  int64_t returnNumNodes();
 };
 

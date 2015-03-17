@@ -11,14 +11,14 @@ using namespace std;
 class GanitaEdge
 {
 private:
-  unsigned long id;
-  unsigned long value;
+  uint64_t id;
+  uint64_t value;
 public:
   GanitaEdge(void);
-  GanitaEdge(unsigned long ii, unsigned long vv);
-  unsigned long returnId(void);
-  unsigned long returnValue(void);
-  unsigned long setId(unsigned long ii);
-  unsigned long setValue(unsigned long val);
+  GanitaEdge(uint64_t ii, uint64_t vv);
+  uint64_t returnId(void);
+  uint64_t returnValue(void);
+  uint64_t setId(uint64_t ii);
+  uint64_t setValue(uint64_t val);
 };
 

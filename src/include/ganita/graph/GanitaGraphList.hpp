@@ -4,13 +4,13 @@
 class GanitaGraphList:public GanitaGraph
 {
 private:
-  unsigned long id;
-  unsigned long value;
+  uint64_t id;
+  uint64_t value;
   int verbosity;
 public:
   GanitaGraphList(void);
   GanitaGraphList(int verbosity);
-  unsigned long addNew(unsigned long the_id);
-  unsigned long dumpList(void);
+  uint64_t addNew(uint64_t the_id);
+  uint64_t dumpList(void);
 };
 

@@ -1,4 +1,4 @@
-#include "ganita/zero/GanitaBuffer.hpp"
+#include "ganita/graph/GanitaBuffer.hpp"
 
 GanitaBuffer::GanitaBuffer(void)
 {
@@ -88,6 +88,29 @@ unsigned char GanitaBuffer::getByte(unsigned long loc)
   return(byte & 0xff);
 }
 
+// Read input one line at a time.
+// Do not use with getByte currently.
+int64_t GanitaBuffer::getLine(char *line)
+{
+  //char line[101];
+
+  line[0] = '\0';
+
+  if(!gzt_input_file->getline(line,100)){
+    // error reading line
+    if(gzt_input_file->eof()){              // check for EOF
+      std::cout << "[EoF reached]\n";
+      return(-1);
+    }
+    else{
+      std::cout << "[error reading]\n";
+      return(-2);
+    }
+  }
+
+  return(strlen(line));
+}
+
 unsigned long GanitaBuffer::size()
 {
   return(file_size);
@@ -113,6 +136,70 @@ unsigned long GanitaBuffer::open(char *input_file)
   buf_read_flag = 1;
   
   return(1);
+}
+
+unsigned long GanitaBuffer::openDoubleLine(char *input_file)
+{
+  // Open buffer for reading.
+  char line[101];
+  double val;
+  gzt_input_file->open(input_file);
+  if (!gzt_input_file->is_open()){
+    std::cout<<"Unable to open input file: "<<input_file<<std::endl;
+    return(0);
+  }
+
+  while(getLine(&line[0]) > 0){
+    //cout<<"Found another line"<<endl;
+    sscanf(line,"%lf",&val);
+    double_value.push_back(val);
+  }
+
+  cout<<"Sequence contains "<<double_value.size()<<" doubles."<<endl;
+  
+  // byte_value = new unsigned char[buffer_size];
+  // gzt_input_file->seekg(0, gzt_input_file->end);
+  // file_size = gzt_input_file->tellg();
+  // if(file_size < buffer_size){
+  //   buffer_size = file_size;
+  // }
+  // gzt_input_file->seekg(0, gzt_input_file->beg);
+  // gzt_input_file->read((char *) byte_value,buffer_size);
+  // buf_read_flag = 1;
+
+  return(double_value.size());
+}
+
+uint64_t GanitaBuffer::dumpDoubles(void)
+{
+  uint64_t ii;
+  for(ii=0; ii<double_value.size(); ii++){
+    fprintf(stdout, "%lf\n", double_value[ii]);
+  }
+  return(double_value.size());
+}
+
+int32_t GanitaBuffer::getDouble(uint64_t myindex, double &myd)
+{
+  if(double_value.size() <= 0){
+    return(-1);
+  }
+  else{
+    if(myindex >= double_value.size()){
+      myindex %= double_value.size();
+      myd = double_value[myindex];
+      return(0);
+    }
+    else {
+      myd = double_value[myindex];
+      return(1);
+    }
+  }
+}      
+
+uint64_t GanitaBuffer::doubleSize(void)
+{
+  return(double_value.size());
 }
 
 unsigned long GanitaBuffer::openOut(char *out_file)

@@ -22,29 +22,29 @@ using namespace std;
 class GanitaNode
 {
 private:
-  unsigned long id;
-  unsigned long value;
+  uint64_t id;
+  uint64_t value;
   vector<GanitaEdge> edge;
   char delim;
   string *property;
 public:
   GanitaNode();
-  GanitaNode(unsigned long ii, unsigned val, string edgeval);
-  unsigned long returnId(void);
-  unsigned long returnValue(void);
+  GanitaNode(uint64_t ii, unsigned val, string edgeval);
+  uint64_t returnId(void);
+  uint64_t returnValue(void);
   string returnProperty(void);
-  unsigned long initProperty(string prop);
-  unsigned long setId(unsigned long ii);
-  unsigned long setValue(unsigned long val);
-  unsigned long addEdge(unsigned long val);
-  unsigned long addEdge(unsigned long ii, unsigned long val);
-  unsigned long setEdge(string edgeval);
-  int setEdgeId(unsigned long ee, unsigned long ii);
-  int setEdgeValue(unsigned long ee, unsigned long val);
-  unsigned long edgestrToMax(string edgeval);
-  unsigned long dumpEdgeValues(void);
-  unsigned long dumpEdgeAll(void);
-  int returnEdge(unsigned long ee, GanitaEdge& ed);
-  unsigned long returnNumEdges(void);
+  uint64_t initProperty(string prop);
+  uint64_t setId(uint64_t ii);
+  uint64_t setValue(uint64_t val);
+  uint64_t addEdge(uint64_t val);
+  uint64_t addEdge(uint64_t ii, uint64_t val);
+  uint64_t setEdge(string edgeval);
+  int setEdgeId(uint64_t ee, uint64_t ii);
+  int setEdgeValue(uint64_t ee, uint64_t val);
+  uint64_t edgestrToMax(string edgeval);
+  uint64_t dumpEdgeValues(void);
+  uint64_t dumpEdgeAll(void);
+  int returnEdge(uint64_t ee, GanitaEdge& ed);
+  uint64_t returnNumEdges(void);
 };
 

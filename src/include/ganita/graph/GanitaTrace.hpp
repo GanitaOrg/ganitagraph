@@ -13,10 +13,10 @@ class GanitaTrace
 private:
   // trace[0] contains the nodes 
   // and trace[1] contains the edges. 
-  vector<long> trace[2];
-  long kink;
+  vector<int64_t> trace[2];
+  int64_t kink;
 public:
   GanitaTrace();
-  long findKink();
+  int64_t findKink();
 };
 

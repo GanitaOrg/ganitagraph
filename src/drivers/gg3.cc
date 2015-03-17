@@ -19,6 +19,10 @@ int main(int argc, char *argv[])
 
   //gg.ggInit(argv[1],argv[2],argv[3]);
 
+  if(argc > 1){
+    cout<<"Command line argument "<<argv[1]<<endl;
+  }
+
   gg.addNew(1);
   gg.addNew(25);
   gg.addNew(21);

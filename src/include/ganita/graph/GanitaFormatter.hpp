@@ -11,7 +11,7 @@ using namespace std;
 class Neo4jFormatter
 {
 private:
-  long total;
+  int64_t total;
   vector<string> nodes1;
   vector<string> nodes2;
   string node_csv;
@@ -19,7 +19,7 @@ private:
 public:
   Neo4jFormatter();
   int readCSV(ifstream myfile);
-  long readCSV(char *myfilestr);
-  long readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3);
+  int64_t readCSV(char *myfilestr);
+  int64_t readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3);
 };
 

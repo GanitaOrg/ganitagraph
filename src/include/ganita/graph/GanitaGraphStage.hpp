@@ -10,18 +10,18 @@ class GanitaGraphStage:public GanitaGraph
 {
 private:
   vector< std::shared_ptr<GanitaNode> > stagenode;
-  unsigned long id;
-  unsigned long value;
+  uint64_t id;
+  uint64_t value;
   int verbosity;
 public:
   GanitaGraphStage(void);
   GanitaGraphStage(int verbose);
-  unsigned long set(unsigned long ii, unsigned long val);
-  unsigned long returnId(void);
-  unsigned long returnValue(void);
-  unsigned long addNode(unsigned long val, string edgeval);
-  unsigned long addNode(string edgeval);
-  unsigned long returnNumNodes(void);
-  GanitaNode *returnNode(unsigned long nn);
+  uint64_t set(uint64_t ii, uint64_t val);
+  uint64_t returnId(void);
+  uint64_t returnValue(void);
+  uint64_t addNode(uint64_t val, string edgeval);
+  uint64_t addNode(string edgeval);
+  uint64_t returnNumNodes(void);
+  GanitaNode *returnNode(uint64_t nn);
 };
 
