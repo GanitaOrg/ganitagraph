@@ -15,7 +15,7 @@ GanitaGraph::GanitaGraph(int verbose)
   memory_estimate = GANITA_GRAPH_MEM_BASE;
 }
 
-unsigned long GanitaGraph::set(unsigned long ii, unsigned long val)
+uint64_t GanitaGraph::set(uint64_t ii, uint64_t val)
 {
   id = ii;
   value = val;
@@ -23,50 +23,50 @@ unsigned long GanitaGraph::set(unsigned long ii, unsigned long val)
   return(id);
 }
 
-unsigned long GanitaGraph::returnId(void)
+uint64_t GanitaGraph::returnId(void)
 {
   return(id);
 }
 
-unsigned long GanitaGraph::returnValue(void)
+uint64_t GanitaGraph::returnValue(void)
 {
   return(value);
 }
 
-unsigned long GanitaGraph::addNode(unsigned long val, string edgeval)
+uint64_t GanitaGraph::addNode(uint64_t val, string edgeval)
 {
   GanitaNode *tmpNode = new GanitaNode();
 
-  tmpNode->setId((unsigned long)node.size() + 1);
+  tmpNode->setId((uint64_t)node.size() + 1);
   tmpNode->setValue(val);
   tmpNode->setEdge(edgeval);
 
   node.push_back(std::make_shared<GanitaNode>(*tmpNode));
   delete tmpNode;
 
-  return((unsigned long)node.size());
+  return((uint64_t)node.size());
 }
 
-unsigned long GanitaGraph::addNode(string edgeval)
+uint64_t GanitaGraph::addNode(string edgeval)
 {
   GanitaNode *tmpNode = new GanitaNode();
 
-  tmpNode->setId((unsigned long)node.size() + 1);
-  tmpNode->setValue((unsigned long)node.size() + 1);
+  tmpNode->setId((uint64_t)node.size() + 1);
+  tmpNode->setValue((uint64_t)node.size() + 1);
   tmpNode->setEdge(edgeval);
 
   node.push_back(std::make_shared<GanitaNode>(*tmpNode));
   delete tmpNode;
 
-  return((unsigned long)node.size());
+  return((uint64_t)node.size());
 }
 
-unsigned long GanitaGraph::returnNumNodes(void)
+uint64_t GanitaGraph::returnNumNodes(void)
 {
   return(node.size());
 }
 
-GanitaNode *GanitaGraph::returnNode(unsigned long nn)
+GanitaNode *GanitaGraph::returnNode(uint64_t nn)
 {
   if(node.size() <= 0){
     // no nodes added yet
@@ -76,9 +76,9 @@ GanitaNode *GanitaGraph::returnNode(unsigned long nn)
   return(node[nn % node.size()].get());
 }
 
-unsigned long GanitaGraph::computeMemoryEstimate(void)
+uint64_t GanitaGraph::computeMemoryEstimate(void)
 {
-  unsigned long ii;
+  uint64_t ii;
 
   memory_estimate = GANITA_GRAPH_MEM_BASE;
 

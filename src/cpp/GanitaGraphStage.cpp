@@ -13,7 +13,7 @@ GanitaGraphStage::GanitaGraphStage(int verbose)
   verbosity = verbose;
 }
 
-unsigned long GanitaGraphStage::set(unsigned long ii, unsigned long val)
+uint64_t GanitaGraphStage::set(uint64_t ii, uint64_t val)
 {
   id = ii;
   value = val;
@@ -21,50 +21,50 @@ unsigned long GanitaGraphStage::set(unsigned long ii, unsigned long val)
   return(id);
 }
 
-unsigned long GanitaGraphStage::returnId(void)
+uint64_t GanitaGraphStage::returnId(void)
 {
   return(id);
 }
 
-unsigned long GanitaGraphStage::returnValue(void)
+uint64_t GanitaGraphStage::returnValue(void)
 {
   return(value);
 }
 
-unsigned long GanitaGraphStage::addNode(unsigned long val, string edgeval)
+uint64_t GanitaGraphStage::addNode(uint64_t val, string edgeval)
 {
   GanitaNode *tmpNode = new GanitaNode();
 
-  tmpNode->setId((unsigned long)stagenode.size() + 1);
+  tmpNode->setId((uint64_t)stagenode.size() + 1);
   tmpNode->setValue(val);
   tmpNode->setEdge(edgeval);
 
   stagenode.push_back(std::make_shared<GanitaNode>(*tmpNode));
   delete tmpNode;
 
-  return((unsigned long)stagenode.size());
+  return((uint64_t)stagenode.size());
 }
 
-unsigned long GanitaGraphStage::addNode(string edgeval)
+uint64_t GanitaGraphStage::addNode(string edgeval)
 {
   GanitaNode *tmpNode = new GanitaNode();
 
-  tmpNode->setId((unsigned long)stagenode.size() + 1);
-  tmpNode->setValue((unsigned long)stagenode.size() + 1);
+  tmpNode->setId((uint64_t)stagenode.size() + 1);
+  tmpNode->setValue((uint64_t)stagenode.size() + 1);
   tmpNode->setEdge(edgeval);
 
   stagenode.push_back(std::make_shared<GanitaNode>(*tmpNode));
   delete tmpNode;
 
-  return((unsigned long)stagenode.size());
+  return((uint64_t)stagenode.size());
 }
 
-unsigned long GanitaGraphStage::returnNumNodes(void)
+uint64_t GanitaGraphStage::returnNumNodes(void)
 {
   return(stagenode.size());
 }
 
-GanitaNode *GanitaGraphStage::returnNode(unsigned long nn)
+GanitaNode *GanitaGraphStage::returnNode(uint64_t nn)
 {
   if(stagenode.size() <= 0){
     // no nodes added yet

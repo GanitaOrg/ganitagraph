@@ -48,7 +48,7 @@ GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
   }
 }
 
-unsigned char GanitaBuffer::getByte(unsigned long loc)
+unsigned char GanitaBuffer::getByte(uint64_t loc)
 {
   unsigned char byte;
 
@@ -111,12 +111,12 @@ int64_t GanitaBuffer::getLine(char *line)
   return(strlen(line));
 }
 
-unsigned long GanitaBuffer::size()
+uint64_t GanitaBuffer::size()
 {
   return(file_size);
 }
 
-unsigned long GanitaBuffer::open(char *input_file)
+uint64_t GanitaBuffer::open(char *input_file)
 {
   // Open buffer for reading.
   gzt_input_file->open(input_file);
@@ -138,7 +138,7 @@ unsigned long GanitaBuffer::open(char *input_file)
   return(1);
 }
 
-unsigned long GanitaBuffer::openDoubleLine(char *input_file)
+uint64_t GanitaBuffer::openDoubleLine(char *input_file)
 {
   // Open buffer for reading.
   char line[101];
@@ -202,7 +202,7 @@ uint64_t GanitaBuffer::doubleSize(void)
   return(double_value.size());
 }
 
-unsigned long GanitaBuffer::openOut(char *out_file)
+uint64_t GanitaBuffer::openOut(char *out_file)
 {
   // Open output file for writing.
   gzt_output_file.open(out_file);
@@ -216,7 +216,7 @@ unsigned long GanitaBuffer::openOut(char *out_file)
   return(1);
 }
 
-unsigned long GanitaBuffer::writeBit(unsigned char bit)
+uint64_t GanitaBuffer::writeBit(unsigned char bit)
 {
   outByte |= ((bit & 0x1) << outByteOffset);
   outByteOffset++;
@@ -237,7 +237,7 @@ unsigned long GanitaBuffer::writeBit(unsigned char bit)
   return(out_buf_offset);
 }
 
-unsigned long GanitaBuffer::writeByte(unsigned char mybyte)
+uint64_t GanitaBuffer::writeByte(unsigned char mybyte)
 {
   // save byte to output buffer
   out_byte_value[out_buf_offset] = mybyte;
@@ -259,7 +259,7 @@ inline bool GanitaBuffer::is_base64(unsigned char c)
 }
 
 string GanitaBuffer::b64Encode(unsigned char const* in_bytes, 
-			       unsigned long in_len)
+			       uint64_t in_len)
 {
   std::string ret;
   int i = 0;
@@ -309,8 +309,8 @@ string GanitaBuffer::b64Encode(void)
   int j = 0;
   unsigned char char_arr_3[3];
   unsigned char char_arr_4[4];
-  unsigned long byte_loc;
-  unsigned long in_len;
+  uint64_t byte_loc;
+  uint64_t in_len;
 
   byte_loc = 0;
   in_len = file_size;

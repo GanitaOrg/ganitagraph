@@ -26,19 +26,19 @@ int Neo4jFormatter::readCSV(ifstream myfile)
   return -1;
 }
 
-long Neo4jFormatter::readCSV(char *myfilestr)
+int64_t Neo4jFormatter::readCSV(char *myfilestr)
 {
   string line, token[10];
   ifstream myfile(myfilestr);
   vector<string> myvec1;
-  vector<long> myrow1;
+  vector<int64_t> myrow1;
   vector<string> myvec2;
-  vector<long> myrow2;
-  long from, to;
-  vector<long> counts1;
-  vector<long> counts2;
+  vector<int64_t> myrow2;
+  int64_t from, to;
+  vector<int64_t> counts1;
+  vector<int64_t> counts2;
   string tmp1, tmp2;
-  long row;
+  int64_t row;
   unsigned int ii;
   ofstream myout1(node_csv.c_str());
   ofstream myout2(rel_csv.c_str());
@@ -145,19 +145,19 @@ long Neo4jFormatter::readCSV(char *myfilestr)
   return -1;
 }
 
-long Neo4jFormatter::readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
+int64_t Neo4jFormatter::readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
 {
   string line, token[10];
   ifstream myfile(myfilestr);
   vector<string> myvec1;
-  vector<long> myrow1;
+  vector<int64_t> myrow1;
   vector<string> myvec2;
-  vector<long> myrow2;
-  long from, to;
-  vector<long> counts1;
-  vector<long> counts2;
+  vector<int64_t> myrow2;
+  int64_t from, to;
+  vector<int64_t> counts1;
+  vector<int64_t> counts2;
   string tmp1, tmp2;
-  long row;
+  int64_t row;
   unsigned int ii;
   int ntokens;
   ofstream myout1(myfilestr2);

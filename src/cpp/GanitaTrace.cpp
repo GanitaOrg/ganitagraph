@@ -9,7 +9,7 @@ GanitaTrace::GanitaTrace()
   kink = 0;
 }
 
-long GanitaTrace::findKink()
+int64_t GanitaTrace::findKink()
 {
   return kink;
 }

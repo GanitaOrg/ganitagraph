@@ -29,19 +29,19 @@ int GanitaBigraph::readCSV(ifstream myfile)
   return -1;
 }
 
-long GanitaBigraph::readCSV(char *myfilestr)
+int64_t GanitaBigraph::readCSV(char *myfilestr)
 {
   string line, token[10];
   ifstream myfile(myfilestr);
   vector<string> myvec1;
-  vector<long> myrow1;
+  vector<int64_t> myrow1;
   vector<string> myvec2;
-  vector<long> myrow2;
-  long from, to;
-  vector<long> counts1;
-  vector<long> counts2;
+  vector<int64_t> myrow2;
+  int64_t from, to;
+  vector<int64_t> counts1;
+  vector<int64_t> counts2;
   string tmp1, tmp2;
-  long row;
+  int64_t row;
   unsigned int ii;
   ofstream myout1(node_csv.c_str());
   ofstream myout2(rel_csv.c_str());
@@ -148,18 +148,18 @@ long GanitaBigraph::readCSV(char *myfilestr)
   return -1;
 }
 
-long GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilestr)
+int64_t GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilestr)
 {
   string line;
-  long cur_token;
+  int64_t cur_token;
   ifstream mynodefile(mynodefilestr);
   ifstream myedgefile(myedgefilestr);
-  long good;
+  int64_t good;
   unsigned int ii, jj, ntokens;
-  long tk1, tk2;
+  int64_t tk1, tk2;
   char tk3[50];
   double tk4;
-  long cur_node;
+  int64_t cur_node;
 
   tv = 0;
   if(mynodefile.is_open()){
@@ -236,7 +236,7 @@ long GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilestr)
 
   cout<<"Total edges: "<<si[tv-1]+ti[tv-1]<<endl;
 
-  gg_edges = (long *) malloc(sizeof(long)*te);
+  gg_edges = (int64_t *) malloc(sizeof(int64_t)*te);
   if(gg_edges == NULL){
     cout<<"Unable to allocated memory for edges."<<endl;
     return(-1);
@@ -281,19 +281,19 @@ long GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilestr)
   return(te);
 }
 
-long GanitaBigraph::readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
+int64_t GanitaBigraph::readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
 {
   string line, token[10];
   ifstream myfile(myfilestr);
   vector<string> myvec1;
-  vector<long> myrow1;
+  vector<int64_t> myrow1;
   vector<string> myvec2;
-  vector<long> myrow2;
-  long from, to;
-  //vector<long> counts1;
-  //vector<long> counts2;
+  vector<int64_t> myrow2;
+  int64_t from, to;
+  //vector<int64_t> counts1;
+  //vector<int64_t> counts2;
   string tmp1, tmp2;
-  long row;
+  int64_t row;
   unsigned int ii, ntokens;
   ofstream myout1(myfilestr2);
   ofstream myout2(myfilestr3);
@@ -410,17 +410,17 @@ long GanitaBigraph::readCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
   return -1;
 }
 
-long GanitaBigraph::getTotalCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
+int64_t GanitaBigraph::getTotalCSV(char *myfilestr,char *myfilestr2,char *myfilestr3)
 {
   string line, token[10];
   ifstream myfile(myfilestr);
   vector<string> myvec1;
-  vector<long> myrow1;
+  vector<int64_t> myrow1;
   vector<string> myvec2;
-  vector<long> myrow2;
-  long from, to;
+  vector<int64_t> myrow2;
+  int64_t from, to;
   string tmp1, tmp2;
-  long row;
+  int64_t row;
   unsigned int ii, ntokens;
   ofstream myout1(myfilestr2);
   ofstream myout2(myfilestr3);
@@ -545,22 +545,22 @@ long GanitaBigraph::getTotalCSV(char *myfilestr,char *myfilestr2,char *myfilestr
   return (counts1.size() + counts2.size());
 }
 
-long GanitaBigraph::createEdges(char *myfilestr)
+int64_t GanitaBigraph::createEdges(char *myfilestr)
 {
   string line, token[10];
   ifstream myfile(myfilestr);
   vector<string> myvec1;
-  vector<long> myrow1;
+  vector<int64_t> myrow1;
   vector<string> myvec2;
-  vector<long> myrow2;
-  long from, to;
+  vector<int64_t> myrow2;
+  int64_t from, to;
   string tmp1, tmp2;
-  long row;
+  int64_t row;
   unsigned int ii, ntokens;
   //ofstream myout1(myfilestr2);
   //ofstream myout2(myfilestr3);
-  long *cnt;
-  long tt = 0;
+  int64_t *cnt;
+  int64_t tt = 0;
 
   to = 0;
   from = 0;
@@ -575,13 +575,13 @@ long GanitaBigraph::createEdges(char *myfilestr)
     cout<<"Could not open input file stream."<<endl;
     return(-1); 
   }
-  cnt = (long *) malloc(sizeof(long) * (counts1.size() + counts2.size() + 2));
-  //cnt2 = (long *) malloc(sizeof(long) * counts2.size());
+  cnt = (int64_t *) malloc(sizeof(int64_t) * (counts1.size() + counts2.size() + 2));
+  //cnt2 = (int64_t *) malloc(sizeof(int64_t) * counts2.size());
   if(cnt == NULL){
     cout<< "Insufficient memory." << endl;
     return(-1);
   }
-  memset(cnt,0, sizeof(long) * (counts1.size() + counts2.size() + 2));
+  memset(cnt,0, sizeof(int64_t) * (counts1.size() + counts2.size() + 2));
   //memset(cnt2,0,counts2.size());
   // read header line
   //getline (myfile,line);
@@ -704,22 +704,22 @@ long GanitaBigraph::createEdges(char *myfilestr)
   return row;
 }
 
-long GanitaBigraph::createWeightedEdges(char *myfilestr)
+int64_t GanitaBigraph::createWeightedEdges(char *myfilestr)
 {
   string line, token[10];
   ifstream myfile(myfilestr);
   vector<string> myvec1;
-  vector<long> myrow1;
+  vector<int64_t> myrow1;
   vector<string> myvec2;
-  vector<long> myrow2;
-  long from, to;
+  vector<int64_t> myrow2;
+  int64_t from, to;
   string tmp1, tmp2;
-  long row;
+  int64_t row;
   unsigned int ii, ntokens;
   //ofstream myout1(myfilestr2);
   //ofstream myout2(myfilestr3);
-  long *cnt;
-  long tt = 0;
+  int64_t *cnt;
+  int64_t tt = 0;
 
   to = 0; from = 0;
 
@@ -733,13 +733,13 @@ long GanitaBigraph::createWeightedEdges(char *myfilestr)
     cout<<"Could not open input file stream."<<endl;
     return(-1); 
   }
-  cnt = (long *) malloc(sizeof(long) * (counts1.size() + counts2.size() + 2));
-  //cnt2 = (long *) malloc(sizeof(long) * counts2.size());
+  cnt = (int64_t *) malloc(sizeof(int64_t) * (counts1.size() + counts2.size() + 2));
+  //cnt2 = (int64_t *) malloc(sizeof(int64_t) * counts2.size());
   if(cnt == NULL){
     cout<< "Insufficient memory." << endl;
     return(-1);
   }
-  memset(cnt,0, sizeof(long) * (counts1.size() + counts2.size() + 2));
+  memset(cnt,0, sizeof(int64_t) * (counts1.size() + counts2.size() + 2));
   //memset(cnt2,0,counts2.size());
   // read header line
   //getline (myfile,line);
@@ -868,14 +868,14 @@ long GanitaBigraph::createWeightedEdges(char *myfilestr)
   return row;
 }
 
-long GanitaBigraph::ggInit(char *myfilestr,char *myfilestr2,char *myfilestr3)
+int64_t GanitaBigraph::ggInit(char *myfilestr,char *myfilestr2,char *myfilestr3)
 {
   getTotalCSV(myfilestr,myfilestr2,myfilestr3);
   ggAllocRels(te);
   return(createEdges(myfilestr));
 }
 
-long GanitaBigraph::ggInitWeighted(char *myfilestr,char *myfilestr2,char *myfilestr3)
+int64_t GanitaBigraph::ggInitWeighted(char *myfilestr,char *myfilestr2,char *myfilestr3)
 {
   getTotalCSV(myfilestr,myfilestr2,myfilestr3);
   ggAllocRels(te);
@@ -883,10 +883,10 @@ long GanitaBigraph::ggInitWeighted(char *myfilestr,char *myfilestr2,char *myfile
   return(createWeightedEdges(myfilestr));
 }
 
-long GanitaBigraph::ggAllocRels(long tt)
+int64_t GanitaBigraph::ggAllocRels(int64_t tt)
 {
-  //gg_edges = (long **) calloc(tv, sizeof(long*));
-  gg_rels = (long *) malloc(2 * (tt + 100) * sizeof(long));
+  //gg_edges = (int64_t **) calloc(tv, sizeof(int64_t*));
+  gg_rels = (int64_t *) malloc(2 * (tt + 100) * sizeof(int64_t));
   if(gg_rels == NULL){
     cout << "out of memory" << endl;
     return(-1);
@@ -898,9 +898,9 @@ long GanitaBigraph::ggAllocRels(long tt)
   return(1);
 }
 
-long GanitaBigraph::ggAllocWeights(long tt)
+int64_t GanitaBigraph::ggAllocWeights(int64_t tt)
 {
-  gg_edge_property = (double *) malloc((tt + 100) * sizeof(long));
+  gg_edge_property = (double *) malloc((tt + 100) * sizeof(int64_t));
   if(gg_edge_property == NULL){
     cout << "out of memory" << endl;
     return(-1);
@@ -909,18 +909,18 @@ long GanitaBigraph::ggAllocWeights(long tt)
   return(1);
 }
 
-long GanitaBigraph::ggDeAlloc(void)
+int64_t GanitaBigraph::ggDeAlloc(void)
 {
-  //long i;
+  //int64_t i;
   //for(i = 0; i < tv; i++) {
     free(gg_edges);
     //}
   return(1);
 }
 
-long GanitaBigraph::dumpIndices()
+int64_t GanitaBigraph::dumpIndices()
 {
-  unsigned long ii;
+  uint64_t ii;
 
   for(ii=0; ii<ti.size(); ii++){
     cout<<"Vertex: "<<ii<<" Index: "<<ti[ii]<<"; ";
@@ -931,21 +931,21 @@ long GanitaBigraph::dumpIndices()
 }
 
 // Main method that builds gg_edges from gg_rels.
-long GanitaBigraph::computeEdges()
+int64_t GanitaBigraph::computeEdges()
 {
   if((tv <= 0) || (te <= 0)){
     return(-1);
   }
-  gg_edges = (long *) malloc(sizeof(long)*2*te);
+  gg_edges = (int64_t *) malloc(sizeof(int64_t)*2*te);
   if(gg_edges == NULL){
     cout<<"Unable to allocate edges."<<endl;
     return(-1);
   }
   //compute partial sums of ti array
-  long ii, jj, kk;
-  long mm, sum;
-  //vector<long> tmp_i;
-  long from, to;
+  int64_t ii, jj, kk;
+  int64_t mm, sum;
+  //vector<int64_t> tmp_i;
+  int64_t from, to;
   sum = 0;
   for(ii=0; ii<tv; ii++){
     si.push_back(sum);
@@ -988,9 +988,9 @@ long GanitaBigraph::computeEdges()
   return(1);
 }
 
-long GanitaBigraph::dumpEdges()
+int64_t GanitaBigraph::dumpEdges()
 {
-  long ii, jj;
+  int64_t ii, jj;
 
   if((gg_edges == NULL) || (compute_edge_flag < 1)){
     cout << "Need to compute edges first." << endl;
@@ -1008,9 +1008,9 @@ long GanitaBigraph::dumpEdges()
   return(1);
 }
 
-long GanitaBigraph::dumpRels()
+int64_t GanitaBigraph::dumpRels()
 {
-  long ii;
+  int64_t ii;
 
   for(ii=0; ii<te; ii++){
     cout << "(" << gg_rels[2*ii] << "-->" << gg_rels[2*ii+1] << ") " << endl;
@@ -1020,9 +1020,9 @@ long GanitaBigraph::dumpRels()
 }
 
 // Initially we will assume undirected graph and no node is a leaf. 
-long GanitaBigraph::setMinTrace(long len)
+int64_t GanitaBigraph::setMinTrace(int64_t len)
 {
-  long ii;
+  int64_t ii;
 
   //while(ti[ii] <= 0){
   //ii++;
@@ -1043,12 +1043,12 @@ long GanitaBigraph::setMinTrace(long len)
   return(1);
 }
 
-long GanitaBigraph::recommenderBasic(long ncom, long check_4_cycle)
+int64_t GanitaBigraph::recommenderBasic(int64_t ncom, int64_t check_4_cycle)
 {
-  long level, path_count;
-  long ii;
+  int64_t level, path_count;
+  int64_t ii;
   int keep_going = 1;
-  long four_cycle_cnt = 0;
+  int64_t four_cycle_cnt = 0;
 
   trace[0].clear();
   level = 0; path_count = 0;
@@ -1110,9 +1110,9 @@ long GanitaBigraph::recommenderBasic(long ncom, long check_4_cycle)
   return (1);
 }
 
-long GanitaBigraph::checkCycle4(long ncom)
+int64_t GanitaBigraph::checkCycle4(int64_t ncom)
 {
-  long jj;
+  int64_t jj;
 
   if(ncom >= 3){
     if((trace[0][0] != trace[0][2]) && (trace[0][1] != trace[0][3])){
@@ -1153,10 +1153,10 @@ long GanitaBigraph::checkCycle4(long ncom)
   return(0);
 }
 
-long GanitaBigraph::nodeDotProd(long nn1, long nn2)
+int64_t GanitaBigraph::nodeDotProd(int64_t nn1, int64_t nn2)
 {
-  long dd;
-  long ii, jj;
+  int64_t dd;
+  int64_t ii, jj;
 
   ii = 0; jj = 0;
   dd = 0;
@@ -1175,10 +1175,10 @@ long GanitaBigraph::nodeDotProd(long nn1, long nn2)
   return(dd);
 }
 
-long GanitaBigraph::nodeDotProd2(long nn1, long nn2, long tt)
+int64_t GanitaBigraph::nodeDotProd2(int64_t nn1, int64_t nn2, int64_t tt)
 {
-  long dd;
-  long ii, jj;
+  int64_t dd;
+  int64_t ii, jj;
 
   ii = 0; jj = 0;
   dd = 0;
@@ -1201,9 +1201,9 @@ long GanitaBigraph::nodeDotProd2(long nn1, long nn2, long tt)
 
 }
 
-long GanitaBigraph::nodeDotProd(long nn1)
+int64_t GanitaBigraph::nodeDotProd(int64_t nn1)
 {
-  long nn2, dd;
+  int64_t nn2, dd;
 
   for(nn2=0; nn2<tv; nn2++){
     dd = nodeDotProd(nn1, nn2);
@@ -1215,9 +1215,9 @@ long GanitaBigraph::nodeDotProd(long nn1)
   return(1);
 }
 
-long GanitaBigraph::nodeDotProd2(long nn1, long tt)
+int64_t GanitaBigraph::nodeDotProd2(int64_t nn1, int64_t tt)
 {
-  long nn2, uu;
+  int64_t nn2, uu;
 
   for(nn2=0; nn2<tv; nn2++){
     uu = nodeDotProd2(nn1, nn2, tt);
@@ -1229,7 +1229,7 @@ long GanitaBigraph::nodeDotProd2(long nn1, long tt)
   return(1);
 }
 
-long GanitaBigraph::returnNumNodes()
+int64_t GanitaBigraph::returnNumNodes()
 {
   return(tv);
 }

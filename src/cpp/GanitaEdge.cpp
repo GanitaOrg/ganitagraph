@@ -8,29 +8,29 @@ GanitaEdge::GanitaEdge(void)
   value = 0;
 }
 
-GanitaEdge::GanitaEdge(unsigned long ii, unsigned long vv)
+GanitaEdge::GanitaEdge(uint64_t ii, uint64_t vv)
 {
   id = ii;
   value = vv;
 }
 
-unsigned long GanitaEdge::returnId(void)
+uint64_t GanitaEdge::returnId(void)
 {
   return(id);
 }
 
-unsigned long GanitaEdge::returnValue(void)
+uint64_t GanitaEdge::returnValue(void)
 {
   return(value);
 }
 
-unsigned long GanitaEdge::setId(unsigned long ii)
+uint64_t GanitaEdge::setId(uint64_t ii)
 {
   id = ii;
   return(id);
 }
 
-unsigned long GanitaEdge::setValue(unsigned long val)
+uint64_t GanitaEdge::setValue(uint64_t val)
 {
   value = val;
   return(value);

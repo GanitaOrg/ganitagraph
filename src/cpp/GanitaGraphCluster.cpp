@@ -12,22 +12,22 @@ GanitaGraphCluster::GanitaGraphCluster(void)
   num_modes = 0;
 }
 
-GanitaGraphCluster::GanitaGraphCluster(unsigned long nm)
+GanitaGraphCluster::GanitaGraphCluster(uint64_t nm)
 {
   id = 0;
   value = 0;
   num_modes = nm;
 }
 
-unsigned long GanitaGraphCluster::addNew(string prop)
+uint64_t GanitaGraphCluster::addNew(string prop)
 {
-  unsigned long ii, jj;
+  uint64_t ii, jj;
   GanitaEdge ed;
   GanitaNode *tmpNode = new GanitaNode();
-  unsigned long len;
-  unsigned long diff;
-  unsigned long min;
-  unsigned long min_i;
+  uint64_t len;
+  uint64_t diff;
+  uint64_t min;
+  uint64_t min_i;
 
   // Add another node.
   tmpNode->setId(node.size());
@@ -65,9 +65,9 @@ unsigned long GanitaGraphCluster::addNew(string prop)
   return(node.size());
 }
 
-unsigned long GanitaGraphCluster::dumpList(void)
+uint64_t GanitaGraphCluster::dumpList(void)
 {
-  unsigned long ii;
+  uint64_t ii;
 
   cout<<"Number of nodes: "<<returnNumNodes()<<endl;
   for(ii=0; ii<returnNumNodes(); ii++){

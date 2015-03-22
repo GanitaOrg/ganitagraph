@@ -18,9 +18,9 @@ GanitaGraphList::GanitaGraphList(int verbose)
   verbosity = verbose;
 }
 
-unsigned long GanitaGraphList::addNew(unsigned long the_id)
+uint64_t GanitaGraphList::addNew(uint64_t the_id)
 {
-  unsigned long ii;
+  uint64_t ii;
   GanitaEdge ed;
   GanitaNode *tmpNode = new GanitaNode();
 
@@ -77,9 +77,9 @@ unsigned long GanitaGraphList::addNew(unsigned long the_id)
   return(node.size());
 }
 
-unsigned long GanitaGraphList::dumpList(void)
+uint64_t GanitaGraphList::dumpList(void)
 {
-  unsigned long ii;
+  uint64_t ii;
 
   cout<<"Number of nodes: "<<returnNumNodes()<<endl;
   for(ii=0; ii<returnNumNodes(); ii++){
