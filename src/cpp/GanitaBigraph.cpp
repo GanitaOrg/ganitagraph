@@ -186,7 +186,7 @@ int64_t GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilest
       getline (myedgefile,line);
       //cout << line << endl;
       getline (myedgefile,line);
-      sscanf(line.c_str(),"%ld %ld %s %lf", &tk1, &tk2, tk3, &tk4);
+      sscanf(line.c_str(),"%ld %ld %s %lf", (int64_t *) &tk1, (int64_t *) &tk2, tk3, &tk4);
       //std::istringstream is(line);
       ii = 0; jj = 0;
       // while(std::getline(is, token[ii], ' ')) {
@@ -206,7 +206,7 @@ int64_t GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilest
       while ( getline (myedgefile,line) )
 	{
 	  //cout << line << endl;
-	  sscanf(line.c_str(),"%ld %ld %s %lf", &tk1, &tk2, tk3, &tk4);
+	  sscanf(line.c_str(),"%ld %ld %s %lf", (int64_t *) &tk1, (int64_t *) &tk2, tk3, &tk4);
 	  //std::istringstream is(line);
 	  ii=0;
 	  // while(std::getline(is, token[ii], ' ')) {
@@ -256,7 +256,7 @@ int64_t GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilest
   //cout << line << endl;
   for(ii=0; ii<tv; ii++){
     getline (myedgefile,line);
-    sscanf(line.c_str(),"%ld %ld %s %lf", &tk1, &tk2, tk3, &tk4);
+    sscanf(line.c_str(),"%ld %ld %s %lf", (int64_t *) &tk1, (int64_t *) &tk2, tk3, &tk4);
     //gg_edges[si[tk1]] = tk2;
     cur_node = tk1;
     total += ti[ii];
@@ -264,7 +264,7 @@ int64_t GanitaBigraph::readWeightedEdges(char *mynodefilestr, char *myedgefilest
     for(jj=1; jj<ti[cur_node-1]; jj++){
       getline (myedgefile,line);
       //cout<<line<<endl;
-      sscanf(line.c_str(),"%ld %ld %s %lf", &tk1, &tk2, tk3, &tk4);
+      sscanf(line.c_str(),"%ld %ld %s %lf", (int64_t *) &tk1, (int64_t *) &tk2, tk3, &tk4);
       //gg_edges[si[tk1]+jj] = tk2;
       //gg_edge_property[si[tk1]+jj] = tk4;
       //cout<<tk4<<" ";
