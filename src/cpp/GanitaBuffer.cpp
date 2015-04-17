@@ -15,6 +15,7 @@ GanitaBuffer::GanitaBuffer(void)
   outByte = 0;
   outByteOffset = 0;
   out_buf_offset = 0;
+  inout_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
 }
 
 GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
@@ -29,6 +30,7 @@ GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
   outByte = 0;
   outByteOffset = 0;
   out_buf_offset = 0;
+  inout_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
   if (!gzt_file.is_open()){
     std::cout<<"Unable to open input file: "<<std::endl;
     buf_read_flag = 0;
@@ -48,6 +50,9 @@ GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
   }
 }
 
+// Could be most important method in this class. 
+// Used to read in from input file and 
+// do automatic buffering in memory. 
 unsigned char GanitaBuffer::getByte(uint64_t loc)
 {
   unsigned char byte;
@@ -212,6 +217,64 @@ uint64_t GanitaBuffer::openOut(char *out_file)
   }
   //cout<<"Out buf size: "<<out_buf_size<<endl;
   out_byte_value = new unsigned char[out_buf_size];
+  
+  return(1);
+}
+
+uint64_t GanitaBuffer::openFileBuffer(char buf_file[])
+{
+  // Open output file for writing.
+  //gzt_inout_file.open(buf_file, ios::in | ios::out | ios::binary);
+  gzt_inout_file.open(buf_file, ios::in | ios::out | ios::binary | ios::trunc);
+  if (!gzt_inout_file.is_open()){
+    std::cout<<"Unable to open inout file: "<<buf_file<<std::endl;
+    return(0);
+  }
+  //cout<<"Out buf size: "<<out_buf_size<<endl;
+  //out_byte_value = new unsigned char[out_buf_size];
+  
+  return(1);
+}
+
+uint64_t GanitaBuffer::initInOutBuffer(uint64_t len)
+{
+  // len is the number of bytes to set to zero.
+  if (!gzt_inout_file.is_open()){
+    std::cout<<"inout file is not open: "<<std::endl;
+    return(0);
+  }
+  char *zbuf = new char[inout_buf_size]();
+  uint64_t jj = len / inout_buf_size;
+  uint64_t kk = len - jj * inout_buf_size;
+  uint64_t ii;
+  //cout<<"sizes: "<<inout_buf_size<<" "<<kk<<endl;
+  for(ii=0; ii<jj; ii++){
+    gzt_inout_file.write(zbuf, inout_buf_size);
+  }
+  gzt_inout_file.write(zbuf, kk);
+  
+  return(len);
+}
+
+// This will setup file buffer for large updates. 
+// Currently, location is hard-coded in typical linux tmp dir. 
+uint64_t GanitaBuffer::createInOutBuffer(void)
+{
+  const char dir_path[] = "/tmp/ganita";
+  //boost::filesystem::path dir(dir_path);
+  //if(
+  mkdir(dir_path, S_IRUSR | S_IWUSR | S_IXUSR);
+  //   < 0){
+  //fprintf(stderr, "Unable to make directory: %s.\n", dir_path);
+  //return(0);
+  //}
+  // if(!boost::filesystem::create_directory(dir)) {
+  //   std::cout << "Could not create /tmp/ganita directory." << "\n";
+  // }
+  openFileBuffer((char *) "/tmp/ganita/gzero.track");
+  // we need a bit for each input file bit.
+  //cout<<"File size: "<<(file_size + 7)/8<<endl;
+  initInOutBuffer( (file_size + 7)/8 );
   
   return(1);
 }
@@ -405,6 +468,11 @@ int GanitaBuffer::close(void)
   if (gzt_input_file->is_open()){
     // cout<<"Closing input file."<<endl;
     gzt_input_file->close();
+    count++;
+  }
+  if (gzt_inout_file.is_open()){
+    // cout<<"Closing inout file."<<endl;
+    gzt_inout_file.close();
     count++;
   }
   

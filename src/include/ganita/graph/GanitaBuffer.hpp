@@ -1,3 +1,12 @@
+// This class is used to buffer data in memory and on disk. 
+// It includes 3 different file streams. 
+// gzt_input_file is used to input data from disk. 
+// gzt_output_file is used to output results to disk. 
+// gzt_inout_file is used to buffer data to disk. 
+// Various memory buffers may be defined. 
+// Initially, only a single byte_value buffer is used
+// for the gzt_input_file buffering. 
+
 #ifndef _GANITABUFFER_
 #define _GANITABUFFER_
 
@@ -8,6 +17,7 @@
 #include <sstream>
 #include <cstdio>
 #include <cstring>
+#include <sys/stat.h>
 
 //default buffer size (1M)
 #ifndef GANITA_DEFAULT_BUFFER_SIZE
@@ -17,6 +27,11 @@
 //default output buffer size
 #ifndef GANITA_DEFAULT_OUTPUT_BUFFER_SIZE
 #define GANITA_DEFAULT_OUTPUT_BUFFER_SIZE 4096
+#endif
+
+//default file buffer size
+#ifndef GANITA_DEFAULT_FILE_BUFFER_SIZE
+#define GANITA_DEFAULT_INOUT_BUFFER_SIZE 4096
 #endif
 
 using namespace std;
@@ -41,11 +56,13 @@ private:
   int buf_read_flag;
   std::ifstream *gzt_input_file;
   std::ofstream gzt_output_file;
+  std::fstream gzt_inout_file;
   unsigned char outByte;
   int outByteOffset;
   unsigned char *out_byte_value;
   uint64_t out_buf_size;
   uint64_t out_buf_offset;
+  uint64_t inout_buf_size;
 public:
   GanitaBuffer();
   GanitaBuffer(std::ifstream &gzt_file);
@@ -58,6 +75,9 @@ public:
   int32_t getDouble(uint64_t myindex, double &myd);
   uint64_t doubleSize(void);
   uint64_t openOut(char *out_file);
+  uint64_t openFileBuffer(char *buf_file);
+  uint64_t initInOutBuffer(uint64_t len);
+  uint64_t createInOutBuffer(void);
   uint64_t writeBit(unsigned char bit);
   uint64_t writeByte(unsigned char mybyte);
   inline bool is_base64(unsigned char c);
