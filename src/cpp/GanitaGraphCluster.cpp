@@ -47,6 +47,7 @@ uint64_t GanitaGraphCluster::addNew(string prop)
   min = 0; min_i = 0;
   while(node[modes[ii]]->returnProperty() != prop){
     // Find the mode with minimum Lp difference. 
+    len = 0;
     if(prop.size() < node[modes[ii]]->returnProperty().size()){
       len = prop.size();
     }

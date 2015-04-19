@@ -67,6 +67,7 @@ public:
   GanitaBuffer();
   GanitaBuffer(std::ifstream &gzt_file);
   unsigned char getByte(uint64_t loc);
+  uint64_t getBit(uint64_t loc);
   int64_t getLine(char *line);
   uint64_t size();
   uint64_t open(char *input_file);

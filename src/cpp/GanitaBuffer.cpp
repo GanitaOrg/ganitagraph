@@ -93,6 +93,16 @@ unsigned char GanitaBuffer::getByte(uint64_t loc)
   return(byte & 0xff);
 }
 
+// Get a bit from input buffer using low to high. 
+uint64_t GanitaBuffer::getBit(uint64_t loc){
+  uint64_t b1, bottom;
+  uint64_t mybit;
+  b1 = loc / 8;
+  bottom = loc % 8;
+  mybit = (uint64_t) (((getByte(b1) & 0xff) >> bottom) & 0x1);
+  return(mybit);
+}
+
 // Read input one line at a time.
 // Do not use with getByte currently.
 int64_t GanitaBuffer::getLine(char *line)
@@ -274,8 +284,11 @@ uint64_t GanitaBuffer::createInOutBuffer(void)
   openFileBuffer((char *) "/tmp/ganita/gzero.track");
   // we need a bit for each input file bit.
   //cout<<"File size: "<<(file_size + 7)/8<<endl;
-  initInOutBuffer( (file_size + 7)/8 );
-  
+  // Bytes are samples. 
+  //initInOutBuffer( (file_size + 7)/8 );
+  // Bits are samples.
+  initInOutBuffer( file_size );
+
   return(1);
 }
 
