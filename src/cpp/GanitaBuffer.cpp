@@ -133,7 +133,7 @@ uint64_t GanitaBuffer::countBitPat(uint64_t refpat, int len)
   tarpat = getBits(0,len);
   count = 0;
   ii = len - 1;
-  while(ii<8*filesize){
+  while(ii<8*file_size){
     if(tarpat == refpat){
       count++;
       ii += len;
