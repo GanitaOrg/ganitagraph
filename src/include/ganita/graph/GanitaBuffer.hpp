@@ -63,11 +63,16 @@ private:
   uint64_t out_buf_size;
   uint64_t out_buf_offset;
   uint64_t inout_buf_size;
+  uint64_t ref_bits;
+  uint64_t ref_bit_loc;
 public:
   GanitaBuffer();
   GanitaBuffer(std::ifstream &gzt_file);
   unsigned char getByte(uint64_t loc);
   uint64_t getBit(uint64_t loc);
+  uint64_t getBits(uint64_t loc, int nbits);
+  int compareBits(uint64_t loc, uint64_t bb, int len);
+  uint64_t countBitPat(uint64_t refpat, int len);
   int64_t getLine(char *line);
   uint64_t size();
   uint64_t open(char *input_file);

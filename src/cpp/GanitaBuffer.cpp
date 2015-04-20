@@ -103,6 +103,50 @@ uint64_t GanitaBuffer::getBit(uint64_t loc){
   return(mybit);
 }
 
+// Get uint64_t of at most 64 bits.
+uint64_t GanitaBuffer::getBits(uint64_t loc, int nbits)
+{
+  uint64_t mybits;
+  int ii;
+  if(nbits > 64) nbits = 64;
+  mybits = 0;
+  for(ii=0; ii<nbits; ii++){
+    mybits |= (getBit(loc + ii) << ii);
+  }
+  return(mybits);
+}
+
+// Check for match bit string.
+int GanitaBuffer::compareBits(uint64_t loc, uint64_t bb, int len)
+{
+  uint64_t mbits;
+  mbits = getBits(loc, len);
+  if(mbits == bb) return(1);
+  else return(0);
+}
+
+// Count occurrences of bit string.
+uint64_t GanitaBuffer::countBitPat(uint64_t refpat, int len)
+{
+  uint64_t ii, count;
+  uint64_t tarpat;
+  tarpat = getBits(0,len);
+  count = 0;
+  ii = len - 1;
+  while(ii<8*filesize){
+    if(tarpat == refpat){
+      count++;
+      ii += len;
+      tarpat = getBits(ii, len);
+    }
+    else {
+      ii++;
+      tarpat = (tarpat >> 1) | (getBit(ii) << len);
+    }
+  }
+  return(count);
+}
+
 // Read input one line at a time.
 // Do not use with getByte currently.
 int64_t GanitaBuffer::getLine(char *line)
