@@ -357,6 +357,37 @@ uint64_t GanitaBuffer::writeBit(unsigned char bit)
   return(out_buf_offset);
 }
 
+uint64_t GanitaBuffer::writeByteInOut(unsigned char mybyte, uint64_t pos)
+{
+  // save byte to file buffer
+  gzt_inout_file.seekp(pos);
+  gzt_inout_file.write((char *) &mybyte,1);
+
+  return(1);
+}
+
+// High bit before low bit in each byte.
+uint64_t GanitaBuffer::writeBitInOut(unsigned char bit, uint64_t pos)
+{
+  uint64_t loc1 = pos / 8;
+  uint64_t loc2 = pos % 8;
+  char tmp1, tmp2;
+  tmp1 = 0x1;
+  gzt_inout_file.seekg (loc1);
+  gzt_inout_file.read (&tmp2, 1);
+  if(bit){
+    tmp2 |= (tmp1 << loc2);
+  }
+  else{
+    tmp2 &= (~(tmp1 << loc2));
+  }
+  //cout<<loc1<<"|"<<tmp2<<"|";
+  gzt_inout_file.seekp(loc1);
+  gzt_inout_file.write(&tmp2, 1);
+
+  return(1);
+}
+
 uint64_t GanitaBuffer::writeByte(unsigned char mybyte)
 {
   // save byte to output buffer

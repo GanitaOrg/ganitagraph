@@ -41,6 +41,22 @@ static const string b64_chars =
              "abcdefghijklmnopqrstuvwxyz"
              "0123456789+/";
 
+static const uint64_t ganita64_mask[] = {
+0x0, 0x1, 0x3, 0x7, 0xf, 0x1f, 0x3f, 0x7f, 
+0xff, 0x1ff, 0x3ff, 0x7ff, 0xfff, 0x1fff, 0x3fff, 0x7fff, 
+0xffff, 0x1ffff, 0x3ffff, 0x7ffff, 0xfffff, 0x1fffff, 0x3fffff, 0x7fffff, 
+0xffffff, 0x1ffffff, 0x3ffffff, 0x7ffffff, 0xfffffff, 0x1fffffff, 0x3fffffff, 0x7fffffff, 
+0xffffffff, 0x1ffffffff, 0x3ffffffff, 0x7ffffffff, 
+0xfffffffff, 0x1fffffffff, 0x3fffffffff, 0x7fffffffff, 
+0xffffffffff, 0x1ffffffffff, 0x3ffffffffff, 0x7ffffffffff, 
+0xfffffffffff, 0x1fffffffffff, 0x3fffffffffff, 0x7fffffffffff, 
+0xffffffffffff, 0x1ffffffffffff, 0x3ffffffffffff, 0x7ffffffffffff, 
+0xfffffffffffff, 0x1fffffffffffff, 0x3fffffffffffff, 0x7fffffffffffff, 
+0xffffffffffffff, 0x1ffffffffffffff, 0x3ffffffffffffff, 0x7ffffffffffffff, 
+0xfffffffffffffff, 0x1fffffffffffffff, 0x3fffffffffffffff, 0x7fffffffffffffff, 
+0xffffffffffffffff
+};
+
 class GanitaBuffer
 {
 private:
@@ -85,6 +101,8 @@ public:
   uint64_t initInOutBuffer(uint64_t len);
   uint64_t createInOutBuffer(void);
   uint64_t writeBit(unsigned char bit);
+  uint64_t writeByteInOut(unsigned char mybyte, uint64_t pos);
+  uint64_t writeBitInOut(unsigned char bit, uint64_t pos);
   uint64_t writeByte(unsigned char mybyte);
   inline bool is_base64(unsigned char c);
   string b64Encode(unsigned char const* in_bytes,uint64_t in_len);
