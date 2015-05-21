@@ -383,7 +383,7 @@ uint64_t GanitaBuffer::writeByteInOut(unsigned char mybyte, uint64_t pos)
 //   return(1);
 // }
 
-// High bit before low bit in each byte.
+// Low bit before high bit in each byte.
 uint64_t GanitaBuffer::writeBitInOut(unsigned char bit, uint64_t pos)
 {
   return(writeBufBitInOut(bit, pos));
@@ -443,7 +443,7 @@ uint64_t GanitaBuffer::writeBufByteInOut(unsigned char mybyte, uint64_t pos)
 }
 
 // Need to work on following method.
-// High bit before low bit in each byte.
+// Low bit before high bit in each byte.
 uint64_t GanitaBuffer::writeBufBitInOut(unsigned char bit, uint64_t pos)
 {
   // save bit to memory or file inout buffer
