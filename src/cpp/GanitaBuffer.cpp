@@ -15,7 +15,8 @@ GanitaBuffer::GanitaBuffer(void)
   outByte = 0;
   outByteOffset = 0;
   out_buf_offset = 0;
-  inout_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
+  inout_fixed_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
+  inout_buf_size = inout_fixed_buf_size;
 }
 
 GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
@@ -30,7 +31,8 @@ GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
   outByte = 0;
   outByteOffset = 0;
   out_buf_offset = 0;
-  inout_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
+  inout_fixed_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
+  inout_buf_size = inout_fixed_buf_size;
   if (!gzt_file.is_open()){
     std::cout<<"Unable to open input file: "<<std::endl;
     buf_read_flag = 0;
@@ -297,7 +299,16 @@ uint64_t GanitaBuffer::initInOutBuffer(uint64_t len)
     std::cout<<"inout file is not open: "<<std::endl;
     return(0);
   }
-  char *zbuf = new char[inout_buf_size]();
+  //char *zbuf = new char[inout_buf_size]();
+  
+  if(len < inout_fixed_buf_size){
+    inout_fixed_buf_size = len;
+    inout_buf_size = len;
+  }
+  inout_file_size = len;
+  inout_buffer_num = 0;
+  inout_buf_start = 0;
+  zbuf = new char[inout_buf_size]();
   uint64_t jj = len / inout_buf_size;
   uint64_t kk = len - jj * inout_buf_size;
   uint64_t ii;
@@ -359,22 +370,111 @@ uint64_t GanitaBuffer::writeBit(unsigned char bit)
 
 uint64_t GanitaBuffer::writeByteInOut(unsigned char mybyte, uint64_t pos)
 {
-  // save byte to file buffer
-  gzt_inout_file.seekp(pos);
-  gzt_inout_file.write((char *) &mybyte,1);
-
-  return(1);
+  return(writeBufByteInOut(mybyte, pos));
 }
+
+// Following method does not use memory buffering.
+// uint64_t GanitaBuffer::writeByteInOut(unsigned char mybyte, uint64_t pos)
+// {
+//   // save byte to file buffer
+//   gzt_inout_file.seekp(pos);
+//   gzt_inout_file.write((char *) &mybyte,1);
+
+//   return(1);
+// }
 
 // High bit before low bit in each byte.
 uint64_t GanitaBuffer::writeBitInOut(unsigned char bit, uint64_t pos)
 {
+  return(writeBufBitInOut(bit, pos));
+}
+
+// Following method does not use memory buffering.
+// uint64_t GanitaBuffer::writeBitInOut(unsigned char bit, uint64_t pos)
+// {
+//   uint64_t loc1 = pos / 8;
+//   uint64_t loc2 = pos % 8;
+//   char tmp1, tmp2;
+//   tmp1 = 0x1;
+//   gzt_inout_file.seekg (loc1);
+//   gzt_inout_file.read (&tmp2, 1);
+//   if(bit){
+//     tmp2 |= (tmp1 << loc2);
+//   }
+//   else{
+//     tmp2 &= (~(tmp1 << loc2));
+//   }
+//   //cout<<loc1<<"|"<<tmp2<<"|";
+//   gzt_inout_file.seekp(loc1);
+//   gzt_inout_file.write(&tmp2, 1);
+
+//   return(1);
+// }
+
+uint64_t GanitaBuffer::writeBufByteInOut(unsigned char mybyte, uint64_t pos)
+{
+  // save byte to memory or file inout buffer
+  // pos is a byte position
+  if(pos >= inout_file_size){
+    // Trying to write beyond claimed inout file size.
+    fprintf(stderr, "Trying to write beyond claimed inout file size.\n");
+    return(0);
+  }
+  if((pos >= inout_buf_start + inout_buf_size) || 
+     (pos < inout_buf_start)){
+    // save current inout buffer and read in new inout buffer
+    gzt_inout_file.seekp(inout_buf_start);
+    gzt_inout_file.write(zbuf, inout_buf_size);
+    // Determine size of next buffer.
+    // Next buffer will start at pos.
+    if(inout_fixed_buf_size > inout_file_size - pos){
+      inout_buf_size = inout_file_size - pos;
+    }
+    else inout_buf_size = inout_fixed_buf_size;
+    // Read inout buffer.
+    gzt_inout_file.seekg(pos);
+    gzt_inout_file.read(zbuf,inout_buf_size);
+    inout_buf_start = pos;
+  }
+  // Copy mybyte to memory inout buffer.
+  zbuf[pos - inout_buf_start] = mybyte;
+
+  return(1);
+}
+
+// Need to work on following method.
+// High bit before low bit in each byte.
+uint64_t GanitaBuffer::writeBufBitInOut(unsigned char bit, uint64_t pos)
+{
+  // save bit to memory or file inout buffer
   uint64_t loc1 = pos / 8;
   uint64_t loc2 = pos % 8;
   char tmp1, tmp2;
+
+  if(loc1 >= inout_file_size){
+    // Trying to write beyond claimed inout file size.
+    fprintf(stderr, "Trying to write beyond claimed inout file size.\n");
+    return(0);
+  }
+  if((loc1 >= inout_buf_start + inout_buf_size) || 
+     (loc1 < inout_buf_start)){
+    // save current inout buffer and read in new inout buffer
+    gzt_inout_file.seekp(inout_buf_start);
+    gzt_inout_file.write(zbuf, inout_buf_size);
+    // Determine size of next buffer.
+    // Next buffer will start at loc1.
+    if(inout_fixed_buf_size > inout_file_size - loc1){
+      inout_buf_size = inout_file_size - loc1;
+    }
+    else inout_buf_size = inout_fixed_buf_size;
+    // Read inout buffer.
+    gzt_inout_file.seekg(loc1);
+    gzt_inout_file.read(zbuf,inout_buf_size);
+    inout_buf_start = loc1;
+  }
+  tmp2 = zbuf[loc1 - inout_buf_start];
+
   tmp1 = 0x1;
-  gzt_inout_file.seekg (loc1);
-  gzt_inout_file.read (&tmp2, 1);
   if(bit){
     tmp2 |= (tmp1 << loc2);
   }
@@ -382,8 +482,7 @@ uint64_t GanitaBuffer::writeBitInOut(unsigned char bit, uint64_t pos)
     tmp2 &= (~(tmp1 << loc2));
   }
   //cout<<loc1<<"|"<<tmp2<<"|";
-  gzt_inout_file.seekp(loc1);
-  gzt_inout_file.write(&tmp2, 1);
+  zbuf[loc1 - inout_buf_start] = tmp2;
 
   return(1);
 }
@@ -560,6 +659,8 @@ int GanitaBuffer::close(void)
   }
   if (gzt_inout_file.is_open()){
     // cout<<"Closing inout file."<<endl;
+    gzt_inout_file.seekp(inout_buf_start);
+    gzt_inout_file.write(zbuf, inout_buf_size);
     gzt_inout_file.close();
     count++;
   }

@@ -30,7 +30,7 @@
 #endif
 
 //default file buffer size
-#ifndef GANITA_DEFAULT_FILE_BUFFER_SIZE
+#ifndef GANITA_DEFAULT_INOUT_BUFFER_SIZE
 #define GANITA_DEFAULT_INOUT_BUFFER_SIZE 4096
 #endif
 
@@ -78,9 +78,14 @@ private:
   unsigned char *out_byte_value;
   uint64_t out_buf_size;
   uint64_t out_buf_offset;
-  uint64_t inout_buf_size;
   uint64_t ref_bits;
   uint64_t ref_bit_loc;
+  char *zbuf;
+  uint64_t inout_buf_size;
+  uint64_t inout_fixed_buf_size;
+  uint64_t inout_buffer_num;
+  uint64_t inout_buf_start;
+  uint64_t inout_file_size;
 public:
   GanitaBuffer();
   GanitaBuffer(std::ifstream &gzt_file);
@@ -101,9 +106,11 @@ public:
   uint64_t initInOutBuffer(uint64_t len);
   uint64_t createInOutBuffer(void);
   uint64_t writeBit(unsigned char bit);
+  uint64_t writeByte(unsigned char mybyte);
   uint64_t writeByteInOut(unsigned char mybyte, uint64_t pos);
   uint64_t writeBitInOut(unsigned char bit, uint64_t pos);
-  uint64_t writeByte(unsigned char mybyte);
+  uint64_t writeBufByteInOut(unsigned char mybyte, uint64_t pos);
+  uint64_t writeBufBitInOut(unsigned char bit, uint64_t pos);
   inline bool is_base64(unsigned char c);
   string b64Encode(unsigned char const* in_bytes,uint64_t in_len);
   string b64Encode(void);
