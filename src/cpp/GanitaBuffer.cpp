@@ -53,7 +53,7 @@ GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
 }
 
 // Could be most important method in this class. 
-// Used to read in from input file and 
+// Used to read from input file and 
 // do automatic buffering in memory. 
 unsigned char GanitaBuffer::getByte(uint64_t loc)
 {
@@ -72,7 +72,7 @@ unsigned char GanitaBuffer::getByte(uint64_t loc)
   file_loc = loc;
   if((loc < buffer_start) || (loc >= buffer_start + buffer_size))
     {
-      // Need to read in a new buffer
+      // Need to read a new buffer
       //cout<<"Read new buffer "<<loc<<" "<<buffer_start<<"\n";
       buffer_num = loc / fixed_buffer_size;
       buffer_start = buffer_num * fixed_buffer_size;
