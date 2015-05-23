@@ -90,7 +90,9 @@ public:
   GanitaBuffer();
   GanitaBuffer(std::ifstream &gzt_file);
   unsigned char getByte(uint64_t loc);
+  unsigned char getInOutByte(uint64_t loc);
   uint64_t getBit(uint64_t loc);
+  uint64_t getInOutBit(uint64_t loc);
   uint64_t getBits(uint64_t loc, int nbits);
   int compareBits(uint64_t loc, uint64_t bb, int len);
   uint64_t countBitPat(uint64_t refpat, int len);

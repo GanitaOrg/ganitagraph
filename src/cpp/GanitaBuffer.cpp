@@ -63,7 +63,6 @@ unsigned char GanitaBuffer::getByte(uint64_t loc)
     cout<<"Location beyond file end: "<<loc<<" >= "<<file_size<<endl;
     loc = loc % file_size;
   }
-
   if(buf_read_flag <= 0){
     std::cout<<"Did not open input file."<<std::endl;
     return(0);
@@ -95,6 +94,44 @@ unsigned char GanitaBuffer::getByte(uint64_t loc)
   return(byte & 0xff);
 }
 
+// Could be most important method in this class. 
+// Used to read from input file and 
+// do automatic buffering in memory. 
+unsigned char GanitaBuffer::getInOutByte(uint64_t loc)
+{
+  unsigned char byte;
+
+  if(loc >= inout_file_size){
+    cout<<"Location beyond inout file end: "<<loc<<" >= "
+	<<inout_file_size<<endl;
+    loc = loc % inout_file_size;
+  }
+
+  if(!gzt_inout_file.is_open()){
+    std::cout<<"Did not open inout file."<<std::endl;
+    return(0);
+  }
+
+  inout_buf_start = loc;
+  if((loc < inout_buf_start) || (loc >= inout_buf_start + inout_buf_size))
+    {
+      if(inout_fixed_buf_size > inout_file_size - loc){
+	inout_buf_size = inout_file_size - loc;
+      }
+      else inout_buf_size = inout_fixed_buf_size;
+      gzt_inout_file.seekg(0, gzt_input_file->beg);
+      gzt_inout_file.seekg(loc);
+      gzt_inout_file.read(zbuf,inout_buf_size);
+      byte = zbuf[0];
+    }
+  else {
+    // Get byte from current buffer 
+    byte = zbuf[loc-inout_buf_start];
+  }
+
+  return(byte & 0xff);
+}
+
 // Get a bit from input buffer using low to high. 
 uint64_t GanitaBuffer::getBit(uint64_t loc){
   uint64_t b1, bottom;
@@ -102,6 +139,16 @@ uint64_t GanitaBuffer::getBit(uint64_t loc){
   b1 = loc / 8;
   bottom = loc % 8;
   mybit = (uint64_t) (((getByte(b1) & 0xff) >> bottom) & 0x1);
+  return(mybit);
+}
+
+// Get a bit from input buffer using low to high. 
+uint64_t GanitaBuffer::getInOutBit(uint64_t loc){
+  uint64_t b1, bottom;
+  uint64_t mybit;
+  b1 = loc / 8;
+  bottom = loc % 8;
+  mybit = (uint64_t) (((getInOutByte(b1) & 0xff) >> bottom) & 0x1);
   return(mybit);
 }
 
@@ -308,7 +355,7 @@ uint64_t GanitaBuffer::initInOutBuffer(uint64_t len)
   inout_file_size = len;
   inout_buffer_num = 0;
   inout_buf_start = 0;
-  zbuf = new char[inout_buf_size]();
+  zbuf = new char[inout_fixed_buf_size]();
   uint64_t jj = len / inout_buf_size;
   uint64_t kk = len - jj * inout_buf_size;
   uint64_t ii;
