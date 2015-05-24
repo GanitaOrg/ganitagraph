@@ -78,8 +78,6 @@ private:
   unsigned char *out_byte_value;
   uint64_t out_buf_size;
   uint64_t out_buf_offset;
-  uint64_t ref_bits;
-  uint64_t ref_bit_loc;
   char *zbuf;
   uint64_t inout_buf_size;
   uint64_t inout_fixed_buf_size;
