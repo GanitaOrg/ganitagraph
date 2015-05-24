@@ -112,11 +112,13 @@ unsigned char GanitaBuffer::getInOutByte(uint64_t loc)
     return(0);
   }
 
-  inout_buf_start = loc;
   if((loc < inout_buf_start) || (loc >= inout_buf_start + inout_buf_size))
     {
+      inout_buf_start = loc;
       if(inout_fixed_buf_size > inout_file_size - loc){
 	inout_buf_size = inout_file_size - loc;
+	//cout<<"Location near end of inout file end: "<<loc<<" >= "
+	//  <<inout_file_size<<endl;	
       }
       else inout_buf_size = inout_fixed_buf_size;
       gzt_inout_file.seekg(0, gzt_input_file->beg);
@@ -150,6 +152,16 @@ uint64_t GanitaBuffer::getInOutBit(uint64_t loc){
   bottom = loc % 8;
   mybit = (uint64_t) (((getInOutByte(b1) & 0xff) >> bottom) & 0x1);
   return(mybit);
+}
+
+// Return 1 if any of next len bits are 1.
+uint64_t GanitaBuffer::getInOutBit(uint64_t loc, int len){
+  int ii = 0;
+  while(!getInOutBit(loc + ii)){
+    ii++;
+    if(ii>=len) return(0);
+  }
+  return(1);
 }
 
 // Get uint64_t of at most 64 bits.
@@ -713,5 +725,21 @@ int GanitaBuffer::close(void)
   }
   
   return(count);
+}
+
+uint64_t GanitaBuffer::inOutSize(void)
+{
+  return(inout_file_size);
+}
+
+int GanitaBuffer::flushInOut(void)
+{
+  if (gzt_inout_file.is_open()){
+    // cout<<"Closing inout file."<<endl;
+    gzt_inout_file.seekp(inout_buf_start);
+    gzt_inout_file.write(zbuf, inout_buf_size);
+    return(1);
+  }
+  else return(-1);
 }
 

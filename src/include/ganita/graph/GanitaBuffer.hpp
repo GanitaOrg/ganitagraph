@@ -31,7 +31,7 @@
 
 //default file buffer size
 #ifndef GANITA_DEFAULT_INOUT_BUFFER_SIZE
-#define GANITA_DEFAULT_INOUT_BUFFER_SIZE 4096
+#define GANITA_DEFAULT_INOUT_BUFFER_SIZE 10000
 #endif
 
 using namespace std;
@@ -93,6 +93,7 @@ public:
   unsigned char getInOutByte(uint64_t loc);
   uint64_t getBit(uint64_t loc);
   uint64_t getInOutBit(uint64_t loc);
+  uint64_t getInOutBit(uint64_t loc, int len);
   uint64_t getBits(uint64_t loc, int nbits);
   int compareBits(uint64_t loc, uint64_t bb, int len);
   uint64_t countBitPat(uint64_t refpat, int len);
@@ -118,6 +119,8 @@ public:
   string b64Encode(void);
   string b64Decode(string &enc_str);
   int close(void);
+  uint64_t inOutSize(void);
+  int flushInOut(void);
 };
 
 #endif
