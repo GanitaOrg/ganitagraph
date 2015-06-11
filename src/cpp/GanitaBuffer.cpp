@@ -11,7 +11,7 @@ GanitaBuffer::GanitaBuffer(void)
   out_buf_size = GANITA_DEFAULT_OUTPUT_BUFFER_SIZE;
   //cout<<"Out buf size: "<<out_buf_size<<endl;
   buf_read_flag = 0;
-  gzt_input_file = new std::ifstream();
+  //gzt_input_file = new std::ifstream();
   outByte = 0;
   outByteOffset = 0;
   out_buf_offset = 0;
@@ -19,38 +19,39 @@ GanitaBuffer::GanitaBuffer(void)
   inout_buf_size = inout_fixed_buf_size;
 }
 
-GanitaBuffer::GanitaBuffer(std::ifstream &gzt_file)
-{
-  file_loc = 0;
-  buffer_num = 0;
-  buffer_start = 0;
-  byte_loc = 0;
-  fixed_buffer_size = GANITA_DEFAULT_BUFFER_SIZE;
-  buffer_size = fixed_buffer_size;
-  //out_buf_size = GANITA_DEFAULT_OUTPUT_BUFFER_SIZE;
-  outByte = 0;
-  outByteOffset = 0;
-  out_buf_offset = 0;
-  inout_fixed_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
-  inout_buf_size = inout_fixed_buf_size;
-  if (!gzt_file.is_open()){
-    std::cout<<"Unable to open input file: "<<std::endl;
-    buf_read_flag = 0;
-  }
-  else {
-    byte_value = new unsigned char[buffer_size];
-    gzt_input_file = new std::ifstream();
-    gzt_input_file = &gzt_file;
-    gzt_input_file->seekg(0, gzt_input_file->end);
-    file_size = gzt_input_file->tellg();
-    if(file_size < buffer_size){
-      buffer_size = file_size;
-    }
-    gzt_input_file->seekg(0, gzt_input_file->beg);
-    gzt_input_file->read((char *) byte_value,buffer_size);
-    buf_read_flag = 1;
-  }
-}
+// GanitaBuffer::GanitaBuffer(std::ifstream gzt_file)
+// {
+//   file_loc = 0;
+//   buffer_num = 0;
+//   buffer_start = 0;
+//   byte_loc = 0;
+//   fixed_buffer_size = GANITA_DEFAULT_BUFFER_SIZE;
+//   buffer_size = fixed_buffer_size;
+//   //out_buf_size = GANITA_DEFAULT_OUTPUT_BUFFER_SIZE;
+//   outByte = 0;
+//   outByteOffset = 0;
+//   out_buf_offset = 0;
+//   inout_fixed_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
+//   inout_buf_size = inout_fixed_buf_size;
+//   if (!gzt_file.is_open()){
+//     std::cout<<"Unable to open input file: "<<std::endl;
+//     buf_read_flag = 0;
+//   }
+//   else {
+//     byte_value = new unsigned char[buffer_size];
+//     //gzt_input_file = new std::ifstream();
+//     //gzt_input_file = &gzt_file;
+//     gzt_input_file = gzt_file;
+//     gzt_input_file->seekg(0, gzt_input_file.end);
+//     file_size = gzt_input_file.tellg();
+//     if(file_size < buffer_size){
+//       buffer_size = file_size;
+//     }
+//     gzt_input_file.seekg(0, gzt_input_file.beg);
+//     gzt_input_file.read((char *) byte_value,buffer_size);
+//     buf_read_flag = 1;
+//   }
+// }
 
 // Could be most important method in this class. 
 // Used to read from input file and 
@@ -76,13 +77,13 @@ unsigned char GanitaBuffer::getByte(uint64_t loc)
       buffer_num = loc / fixed_buffer_size;
       buffer_start = buffer_num * fixed_buffer_size;
       byte_loc = file_loc - buffer_start;
-      gzt_input_file->seekg(0, gzt_input_file->beg);
-      gzt_input_file->seekg(buffer_start);
+      gzt_input_file.seekg(0, gzt_input_file.beg);
+      gzt_input_file.seekg(buffer_start);
       if(buffer_start + buffer_size >= file_size){
 	buffer_size = file_size - buffer_start;
       }
       else buffer_size = fixed_buffer_size;
-      gzt_input_file->read((char *) byte_value,buffer_size);
+      gzt_input_file.read((char *) byte_value,buffer_size);
       byte = byte_value[byte_loc];
     }
   else {
@@ -121,7 +122,7 @@ unsigned char GanitaBuffer::getInOutByte(uint64_t loc)
 	//  <<inout_file_size<<endl;	
       }
       else inout_buf_size = inout_fixed_buf_size;
-      gzt_inout_file.seekg(0, gzt_input_file->beg);
+      gzt_inout_file.seekg(0, gzt_input_file.beg);
       gzt_inout_file.seekg(loc);
       gzt_inout_file.read(zbuf,inout_buf_size);
       byte = zbuf[0];
@@ -216,9 +217,9 @@ int64_t GanitaBuffer::getLine(char *line)
 
   line[0] = '\0';
 
-  if(!gzt_input_file->getline(line,100)){
+  if(!gzt_input_file.getline(line,100)){
     // error reading line
-    if(gzt_input_file->eof()){              // check for EOF
+    if(gzt_input_file.eof()){              // check for EOF
       std::cout << "[EoF reached]\n";
       return(-1);
     }
@@ -239,20 +240,20 @@ uint64_t GanitaBuffer::size()
 uint64_t GanitaBuffer::open(char *input_file)
 {
   // Open buffer for reading.
-  gzt_input_file->open(input_file);
-  if (!gzt_input_file->is_open()){
+  gzt_input_file.open(input_file);
+  if (!gzt_input_file.is_open()){
     std::cout<<"Unable to open input file: "<<input_file<<std::endl;
     return(0);
   }
 
   byte_value = new unsigned char[buffer_size];
-  gzt_input_file->seekg(0, gzt_input_file->end);
-  file_size = gzt_input_file->tellg();
+  gzt_input_file.seekg(0, gzt_input_file.end);
+  file_size = gzt_input_file.tellg();
   if(file_size < buffer_size){
     buffer_size = file_size;
   }
-  gzt_input_file->seekg(0, gzt_input_file->beg);
-  gzt_input_file->read((char *) byte_value,buffer_size);
+  gzt_input_file.seekg(0, gzt_input_file.beg);
+  gzt_input_file.read((char *) byte_value,buffer_size);
   buf_read_flag = 1;
   
   return(1);
@@ -263,8 +264,8 @@ uint64_t GanitaBuffer::openDoubleLine(char *input_file)
   // Open buffer for reading.
   char line[101];
   double val;
-  gzt_input_file->open(input_file);
-  if (!gzt_input_file->is_open()){
+  gzt_input_file.open(input_file);
+  if (!gzt_input_file.is_open()){
     std::cout<<"Unable to open input file: "<<input_file<<std::endl;
     return(0);
   }
@@ -704,26 +705,27 @@ int GanitaBuffer::close(void)
 {
   int count;
   count = 0;
-  if (gzt_output_file.is_open()){
+  if (!gzt_output_file){
     // write out remaining bytes in output buffer
-    // cout<<"Closing output file."<<endl;
+    //cout<<"Closing output file."<<endl;
     gzt_output_file.write((char *)out_byte_value,out_buf_offset);
     gzt_output_file.close();
     count++;
   }
-  if (gzt_input_file->is_open()){
-    // cout<<"Closing input file."<<endl;
-    gzt_input_file->close();
+  if (gzt_input_file.is_open()){
+    //cout<<"Closing input file."<<endl;
+    gzt_input_file.close();
     count++;
   }
   if (gzt_inout_file.is_open()){
-    // cout<<"Closing inout file."<<endl;
+    //cout<<"Closing inout file."<<endl;
     gzt_inout_file.seekp(inout_buf_start);
     gzt_inout_file.write(zbuf, inout_buf_size);
     gzt_inout_file.close();
     count++;
   }
   
+  //cout<<"Closed files."<<endl;
   return(count);
 }
 

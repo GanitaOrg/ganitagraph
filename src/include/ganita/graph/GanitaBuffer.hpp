@@ -70,7 +70,7 @@ private:
   uint64_t file_size;
   uint64_t buffer_start;
   int buf_read_flag;
-  std::ifstream *gzt_input_file;
+  std::ifstream gzt_input_file;
   std::ofstream gzt_output_file;
   std::fstream gzt_inout_file;
   unsigned char outByte;
@@ -86,7 +86,7 @@ private:
   uint64_t inout_file_size;
 public:
   GanitaBuffer();
-  GanitaBuffer(std::ifstream &gzt_file);
+  //GanitaBuffer(std::ifstream gzt_file);
   unsigned char getByte(uint64_t loc);
   unsigned char getInOutByte(uint64_t loc);
   uint64_t getBit(uint64_t loc);
