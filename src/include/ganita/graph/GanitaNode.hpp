@@ -1,4 +1,7 @@
 // g++ -O3 GanitaNode.c -o GanitaNode -lm
+#ifndef _GANITANODE_
+#define _GANITANODE_
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -48,3 +51,4 @@ public:
   uint64_t returnNumEdges(void);
 };
 
+#endif

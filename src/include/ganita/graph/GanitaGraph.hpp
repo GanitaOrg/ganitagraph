@@ -1,3 +1,6 @@
+#ifndef _GANITAGRAPH_
+#define _GANITAGRAPH_
+
 #include <vector>
 #include <boost/shared_ptr.hpp>
 
@@ -30,3 +33,4 @@ public:
   uint64_t computeMemoryEstimate(void);
 };
 
+#endif

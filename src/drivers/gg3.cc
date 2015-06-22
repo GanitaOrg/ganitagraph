@@ -7,10 +7,12 @@
 #include <math.h>
 
 #include "ganita/graph/GanitaGraphList.hpp"
+#include "ganita/graph/GanitaGraphFile.hpp"
 
 int main(int argc, char *argv[])
 {
   GanitaGraphList gg;
+  GanitaGraphFile ggf;
 
   // if(argc < 3){
   //   cout<<"Usage: node-file edge-file"<<endl;;
@@ -38,6 +40,10 @@ int main(int argc, char *argv[])
   cout<<"Size of GanitaGraphList: "<<sizeof(GanitaGraphList)<<endl;
 
   cout<<"Memory estimate: "<<gg.computeMemoryEstimate()<<endl;
+
+  ggf.createGraphFile();
+  ggf.writeGraphHeader(&gg);
+  ggf.close();
 
   exit(1);
 }

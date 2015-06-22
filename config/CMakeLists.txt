@@ -57,9 +57,9 @@ include_directories(../src/include)
 
 # add_library(GanitaGraph ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
-add_library(GanitaGraph SHARED ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBuffer.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaGraphCluster.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+add_library(GanitaGraph SHARED ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBuffer.cpp ../src/cpp/GanitaGraphFile.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaGraphCluster.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
-add_library(GanitaGraphStatic STATIC ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBuffer.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaGraphCluster.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
+add_library(GanitaGraphStatic STATIC ../src/cpp/GanitaGraph.cpp ../src/cpp/GanitaBuffer.cpp ../src/cpp/GanitaGraphFile.cpp ../src/cpp/GanitaBigraph.cpp ../src/cpp/GanitaGraphList.cpp ../src/cpp/GanitaGraphCluster.cpp ../src/cpp/GanitaTrace.cpp ../src/cpp/GanitaEdge.cpp ../src/cpp/GanitaNode.cpp ../src/cpp/GanitaFormatter.cpp)
 
 target_include_directories (GanitaGraph PUBLIC ../src/include ../src/cpp)
 

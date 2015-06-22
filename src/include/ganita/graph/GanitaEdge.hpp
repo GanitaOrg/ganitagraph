@@ -1,4 +1,8 @@
 // g++ -O3 GanitaEdge.c -o GanitaEdge -lm
+
+#ifndef _GANITAEDGE_
+#define _GANITAEDGE_
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -22,3 +26,4 @@ public:
   uint64_t setValue(uint64_t val);
 };
 
+#endif
