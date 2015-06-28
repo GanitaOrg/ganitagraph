@@ -26,6 +26,7 @@ public:
   uint64_t set(uint64_t ii, uint64_t val);
   uint64_t returnId(void);
   uint64_t returnValue(void);
+  uint64_t addNode1(uint64_t val, string nodeval);
   uint64_t addNode(uint64_t val, string edgeval);
   uint64_t addNode(string edgeval);
   uint64_t returnNumNodes(void);

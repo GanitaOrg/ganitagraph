@@ -84,6 +84,7 @@ private:
   uint64_t inout_buffer_num;
   uint64_t inout_buf_start;
   uint64_t inout_file_size;
+  char file_name[500];
 public:
   GanitaBuffer();
   //GanitaBuffer(std::ifstream gzt_file);
@@ -106,6 +107,7 @@ public:
   uint64_t openFileBuffer(char *buf_file);
   uint64_t initInOutBuffer(uint64_t len);
   uint64_t createInOutBuffer(void);
+  uint64_t createInOutBuffer(char *inout_file, uint64_t iofs);
   uint64_t writeBit(unsigned char bit);
   uint64_t writeByte(unsigned char mybyte);
   uint64_t writeByteInOut(unsigned char mybyte, uint64_t pos);
@@ -119,6 +121,7 @@ public:
   int close(void);
   uint64_t inOutSize(void);
   int flushInOut(void);
+  char *returnFileName(void);
 };
 
 #endif

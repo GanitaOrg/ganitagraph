@@ -17,6 +17,7 @@ GanitaBuffer::GanitaBuffer(void)
   out_buf_offset = 0;
   inout_fixed_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
   inout_buf_size = inout_fixed_buf_size;
+  file_name[0] = '\0';
 }
 
 // GanitaBuffer::GanitaBuffer(std::ifstream gzt_file)
@@ -240,6 +241,7 @@ uint64_t GanitaBuffer::size()
 uint64_t GanitaBuffer::open(char *input_file)
 {
   // Open buffer for reading.
+  strcpy(file_name, input_file);
   gzt_input_file.open(input_file);
   if (!gzt_input_file.is_open()){
     std::cout<<"Unable to open input file: "<<input_file<<std::endl;
@@ -257,6 +259,11 @@ uint64_t GanitaBuffer::open(char *input_file)
   buf_read_flag = 1;
   
   return(1);
+}
+
+char *GanitaBuffer::returnFileName(void)
+{
+  return(file_name);
 }
 
 uint64_t GanitaBuffer::openDoubleLine(char *input_file)
@@ -403,6 +410,34 @@ uint64_t GanitaBuffer::createInOutBuffer(void)
   //initInOutBuffer( (file_size + 7)/8 );
   // Bits are samples.
   initInOutBuffer( file_size );
+
+  return(1);
+}
+
+// This will setup file buffer for large updates. 
+// Currently, location is hard-coded in typical linux tmp dir. 
+uint64_t GanitaBuffer::createInOutBuffer(char *inout_file, uint64_t iofs)
+{
+  const char dir_path[] = "/tmp/ganita";
+  char myfname[500];
+  //boost::filesystem::path dir(dir_path);
+  //if(
+  mkdir(dir_path, S_IRUSR | S_IWUSR | S_IXUSR);
+  //   < 0){
+  //fprintf(stderr, "Unable to make directory: %s.\n", dir_path);
+  //return(0);
+  //}
+  // if(!boost::filesystem::create_directory(dir)) {
+  //   std::cout << "Could not create /tmp/ganita directory." << "\n";
+  // }
+  sprintf(myfname, "%s/%s", dir_path, inout_file);
+  openFileBuffer(myfname);
+  // we need a bit for each input file bit.
+  //cout<<"File size: "<<(file_size + 7)/8<<endl;
+  // Bytes are samples. 
+  //initInOutBuffer( (file_size + 7)/8 );
+  // Bits are samples.
+  initInOutBuffer( iofs );
 
   return(1);
 }

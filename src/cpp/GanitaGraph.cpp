@@ -33,6 +33,20 @@ uint64_t GanitaGraph::returnValue(void)
   return(value);
 }
 
+uint64_t GanitaGraph::addNode1(uint64_t val, string nodeval)
+{
+  GanitaNode *tmpNode = new GanitaNode();
+
+  tmpNode->setId((uint64_t)node.size() + 1);
+  tmpNode->setValue(val);
+  tmpNode->initProperty(nodeval);
+
+  node.push_back(std::make_shared<GanitaNode>(*tmpNode));
+  delete tmpNode;
+
+  return((uint64_t)node.size());
+}
+
 uint64_t GanitaGraph::addNode(uint64_t val, string edgeval)
 {
   GanitaNode *tmpNode = new GanitaNode();

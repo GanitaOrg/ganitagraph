@@ -42,7 +42,7 @@ int main(int argc, char *argv[])
   cout<<"Memory estimate: "<<gg.computeMemoryEstimate()<<endl;
 
   ggf.createGraphFile();
-  ggf.writeGraphHeader(&gg);
+  ggf.writeGraph(&gg);
   ggf.close();
 
   exit(1);

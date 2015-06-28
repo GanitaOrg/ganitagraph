@@ -35,7 +35,12 @@ public:
   uint64_t openGraphFile(char buf_file[]);
   uint64_t createGraphFile(void);
   int writeGraphHeader(GanitaGraph *mygg);
+  int writeGraph(GanitaGraph *mygg);
+  int writeGraphNode(GanitaNode *mygn);
+  int writeGraphNodeEdges(GanitaNode *mygn);
+  int writeGraphEdge(GanitaEdge *myge);
   int close(void);
+  int writeVisTables(GanitaGraph *ga);
 };
 
 #endif
