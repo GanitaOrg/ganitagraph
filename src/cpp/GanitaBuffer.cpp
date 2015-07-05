@@ -468,6 +468,24 @@ uint64_t GanitaBuffer::writeByteInOut(unsigned char mybyte, uint64_t pos)
   return(writeBufByteInOut(mybyte, pos));
 }
 
+uint64_t GanitaBuffer::writeU64InOut(uint64_t dd, uint64_t pos)
+{
+  int ii, ret;
+  for(ii=0; ii<8; ii++){
+    ret = writeByteInOut((dd >> 8*ii) & 0xff, pos+ii);
+  }
+  return(ret);
+}
+
+uint64_t GanitaBuffer::write64InOut(int64_t dd, uint64_t pos)
+{
+  int ii, ret;
+  for(ii=0; ii<8; ii++){
+    ret = writeByteInOut((dd >> 8*ii) & 0xff, pos+ii);
+  }
+  return(ret);
+}
+
 // Following method does not use memory buffering.
 // uint64_t GanitaBuffer::writeByteInOut(unsigned char mybyte, uint64_t pos)
 // {

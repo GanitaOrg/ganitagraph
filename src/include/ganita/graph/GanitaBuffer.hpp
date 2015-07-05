@@ -111,6 +111,8 @@ public:
   uint64_t writeBit(unsigned char bit);
   uint64_t writeByte(unsigned char mybyte);
   uint64_t writeByteInOut(unsigned char mybyte, uint64_t pos);
+  uint64_t writeU64InOut(uint64_t dd, uint64_t pos);
+  uint64_t write64InOut(int64_t dd, uint64_t pos);
   uint64_t writeBitInOut(unsigned char bit, uint64_t pos);
   uint64_t writeBufByteInOut(unsigned char mybyte, uint64_t pos);
   uint64_t writeBufBitInOut(unsigned char bit, uint64_t pos);
