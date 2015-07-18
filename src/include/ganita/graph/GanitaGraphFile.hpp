@@ -41,6 +41,7 @@ public:
   int writeGraphEdge(GanitaEdge *myge);
   int close(void);
   int writeVisTables(GanitaGraph *ga);
+  int writeVisTablesForAdic(GanitaGraph *ga);
 };
 
 #endif

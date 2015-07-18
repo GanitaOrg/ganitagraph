@@ -199,3 +199,73 @@ int GanitaGraphFile::writeVisTables(GanitaGraph *ga)
   return(1);
 }
 
+int GanitaGraphFile::writeVisTablesForAdic(GanitaGraph *ga)
+{
+  char vis_file[] = "/var/www/html/graph/graph1.html";
+  std::fstream gg_vis_file;
+  const char dir_path[] = "/var/www/html/graph";
+  mkdir(dir_path, S_IRUSR | S_IWUSR | S_IXUSR);
+  gg_vis_file.open(vis_file, ios::in | ios::out | ios::binary | ios::trunc);
+  if (!gg_vis_file.is_open()){
+    std::cout<<"Unable to open vis file: "<<vis_file<<std::endl;
+    return(0);
+  }
+  string line;
+  char line2[5000];
+  uint64_t ii, jj;
+  uint64_t num = ga->returnNumNodes();
+  GanitaEdge myedge;
+
+  cout<<"Writing vis tables"<<endl;
+  line.assign("<html>\n<head>\n<script type=\"text/javascript\" src=\"../js/vis.min.js\"></script>\n<link href=\"../css/vis.min.css\" rel=\"stylesheet\" type=\"text/css\" />\n<style type=\"text/css\">\n #mynetwork {width: 1200px; height: 800px; border: 1px solid lightgray;}\n</style>\n</head>\n<body>\n<div id=\"mynetwork\"></div>");
+  gg_vis_file.write(line.c_str(), line.size());
+
+  line.assign("<script type=\"text/javascript\">\n");
+  gg_vis_file.write(line.c_str(), line.size());
+  line.assign("var nodes = new vis.DataSet([\n");
+  gg_vis_file.write(line.c_str(), line.size());
+  // Write out root node. 
+  for(ii=0; ii<1; ii++){
+    sprintf(line2, "{id: %ld, label: \'%s\', color: \'#99ff99\'},\n", 
+	    ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
+    line.assign(line2);
+    gg_vis_file.write(line.c_str(), line.size());
+  }
+  // Write out 2 observation nodes.
+  for(ii=1; ii<3; ii++){
+    sprintf(line2, "{id: %ld, label: \'%s\', color: \'#ff9999\'},\n", 
+	    ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
+    line.assign(line2);
+    gg_vis_file.write(line.c_str(), line.size());
+  }
+  // Write out hidden nodes. 
+  for(ii=3; ii<num; ii++){
+    sprintf(line2, "{id: %ld, label: \'%s\'},\n", 
+	    ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
+    line.assign(line2);
+    gg_vis_file.write(line.c_str(), line.size());
+  }
+  line.assign("]);\n\n");
+  gg_vis_file.write(line.c_str(), line.size());
+  line.assign("var edges = new vis.DataSet([\n");
+  gg_vis_file.write(line.c_str(), line.size());
+  for(ii=0; ii<num; ii++){
+    for(jj=0; jj<ga->returnNode(ii)->returnNumEdges(); jj++){
+      ga->returnNode(ii)->returnEdge(jj, myedge);
+      sprintf(line2, "{from: %ld, to: \'%ld\'},\n", 
+	      ga->returnNode(ii)->returnId(), myedge.returnValue());
+      line.assign(line2);
+      gg_vis_file.write(line.c_str(), line.size());
+    }
+  }
+  line.assign("]);\n\n");
+  gg_vis_file.write(line.c_str(), line.size());
+
+  line.assign("var container = document.getElementById(\'mynetwork\');\nvar data = {nodes: nodes, edges: edges};\nvar options = {edges:{physics: true, smooth: {enabled: true,type: \'dynamic\',roundness: 0.5},title:undefined},layout: {randomSeed: undefined,hierarchical: {enabled:false,levelSeparation: 150,direction: \'UD\', sortMethod: 'directed'}}}; var network = new vis.Network(container, data, options); </script> </body> </html>\n");
+  gg_vis_file.write(line.c_str(), line.size());
+
+  gg_vis_file.close();
+
+  return(1);
+}
+
