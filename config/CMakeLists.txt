@@ -7,7 +7,7 @@ project(GanitaGraph CXX C)
 
 ## Version
 set(GanitaGraph_VERSION_MAJOR "0")
-set(GanitaGraph_VERSION_MINOR "19")
+set(GanitaGraph_VERSION_MINOR "20")
 set(GanitaGraph_VERSION_PATCH "0")
 
 cmake_minimum_required(VERSION 2.8)

@@ -21,7 +21,7 @@
 
 //default buffer size (1M)
 #ifndef GANITA_DEFAULT_BUFFER_SIZE
-#define GANITA_DEFAULT_BUFFER_SIZE 1000000
+#define GANITA_DEFAULT_BUFFER_SIZE 1280000
 #endif
 
 //default output buffer size
@@ -89,6 +89,7 @@ public:
   GanitaBuffer();
   //GanitaBuffer(std::ifstream gzt_file);
   unsigned char getByte(uint64_t loc);
+  double getDouble(uint64_t loc);
   unsigned char getInOutByte(uint64_t loc);
   uint64_t getBit(uint64_t loc);
   uint64_t getInOutBit(uint64_t loc);
