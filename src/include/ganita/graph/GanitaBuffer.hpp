@@ -24,14 +24,15 @@
 #define GANITA_DEFAULT_BUFFER_SIZE 1280000
 #endif
 
-//default output buffer size
+//default output buffer size 
+// This should be a multiple of 8.
 #ifndef GANITA_DEFAULT_OUTPUT_BUFFER_SIZE
 #define GANITA_DEFAULT_OUTPUT_BUFFER_SIZE 4096
 #endif
 
 //default file buffer size
 #ifndef GANITA_DEFAULT_INOUT_BUFFER_SIZE
-#define GANITA_DEFAULT_INOUT_BUFFER_SIZE 10000
+#define GANITA_DEFAULT_INOUT_BUFFER_SIZE 12800
 #endif
 
 using namespace std;
@@ -111,11 +112,13 @@ public:
   uint64_t createInOutBuffer(char *inout_file, uint64_t iofs);
   uint64_t writeBit(unsigned char bit);
   uint64_t writeByte(unsigned char mybyte);
+  uint64_t writeDouble(double myd);
   uint64_t writeByteInOut(unsigned char mybyte, uint64_t pos);
   uint64_t writeU64InOut(uint64_t dd, uint64_t pos);
   uint64_t write64InOut(int64_t dd, uint64_t pos);
   uint64_t writeBitInOut(unsigned char bit, uint64_t pos);
   uint64_t writeBufByteInOut(unsigned char mybyte, uint64_t pos);
+  uint64_t writeDoubleInOut(double mydouble, uint64_t pos);
   uint64_t writeBufBitInOut(unsigned char bit, uint64_t pos);
   inline bool is_base64(unsigned char c);
   string b64Encode(unsigned char const* in_bytes,uint64_t in_len);

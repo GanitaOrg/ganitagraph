@@ -600,6 +600,38 @@ uint64_t GanitaBuffer::writeBufByteInOut(unsigned char mybyte, uint64_t pos)
   return(1);
 }
 
+uint64_t GanitaBuffer::writeDoubleInOut(double mydouble, uint64_t pos)
+{
+  // save byte to memory or file inout buffer
+  // pos is a byte position
+  if(pos >= inout_file_size-8){
+    // Trying to write beyond claimed inout file size.
+    fprintf(stderr, "Trying to write beyond claimed inout file size.\n");
+    return(0);
+  }
+  if((pos >= inout_buf_start + inout_buf_size - 8) || 
+     (pos < inout_buf_start)){
+    // save current inout buffer and read in new inout buffer
+    gzt_inout_file.seekp(inout_buf_start);
+    gzt_inout_file.write(zbuf, inout_buf_size);
+    // Determine size of next buffer.
+    // Next buffer will start at pos.
+    if(inout_fixed_buf_size > inout_file_size - pos){
+      inout_buf_size = inout_file_size - pos;
+    }
+    else inout_buf_size = inout_fixed_buf_size;
+    // Read inout buffer.
+    gzt_inout_file.seekg(pos);
+    gzt_inout_file.read(zbuf,inout_buf_size);
+    inout_buf_start = pos;
+  }
+  // Copy mydouble to memory inout buffer.
+  memcpy(zbuf, &mydouble, sizeof(double));
+  //zbuf[pos - inout_buf_start] = mybyte;
+
+  return(1);
+}
+
 // Need to work on following method.
 // Low bit before high bit in each byte.
 uint64_t GanitaBuffer::writeBufBitInOut(unsigned char bit, uint64_t pos)
@@ -650,6 +682,24 @@ uint64_t GanitaBuffer::writeByte(unsigned char mybyte)
   // save byte to output buffer
   out_byte_value[out_buf_offset] = mybyte;
   out_buf_offset++;
+  outByte = 0;
+  outByteOffset = 0;
+  if(out_buf_offset >= out_buf_size){
+    // save output buffer to file
+    gzt_output_file.write((char *)out_byte_value,out_buf_size);
+    out_buf_offset = 0;
+  }
+
+  return(out_buf_offset);
+}
+
+// Warning: out_buf_size should be a multiple of 8. 
+uint64_t GanitaBuffer::writeDouble(double myd)
+{
+  // save double to output buffer
+  //out_byte_value[out_buf_offset] = mybyte;
+  memcpy(out_byte_value, &myd, sizeof(double));
+  out_buf_offset += 8;
   outByte = 0;
   outByteOffset = 0;
   if(out_buf_offset >= out_buf_size){
