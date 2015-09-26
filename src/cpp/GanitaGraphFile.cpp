@@ -170,8 +170,8 @@ int GanitaGraphFile::writeVisTables(GanitaGraph *ga)
   line.assign("var nodes = new vis.DataSet([\n");
   gg_vis_file.write(line.c_str(), line.size());
   for(ii=0; ii<num; ii++){
-    sprintf(line2, "{id: %ld, label: \'%s\'},\n", 
-	    ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
+    sprintf(line2, "{id: %lld, label: \'%s\'},\n", 
+	    (unsigned long long) ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
     line.assign(line2);
     gg_vis_file.write(line.c_str(), line.size());
   }
@@ -182,8 +182,8 @@ int GanitaGraphFile::writeVisTables(GanitaGraph *ga)
   for(ii=0; ii<num; ii++){
     for(jj=0; jj<ga->returnNode(ii)->returnNumEdges(); jj++){
       ga->returnNode(ii)->returnEdge(jj, myedge);
-      sprintf(line2, "{from: %ld, to: \'%ld\'},\n", 
-	      ga->returnNode(ii)->returnId(), myedge.returnValue());
+      sprintf(line2, "{from: %lld, to: \'%lld\'},\n", 
+	      (unsigned long long) ga->returnNode(ii)->returnId(), (unsigned long long) myedge.returnValue());
       line.assign(line2);
       gg_vis_file.write(line.c_str(), line.size());
     }
@@ -226,22 +226,22 @@ int GanitaGraphFile::writeVisTablesForAdic(GanitaGraph *ga)
   gg_vis_file.write(line.c_str(), line.size());
   // Write out root node. 
   for(ii=0; ii<1; ii++){
-    sprintf(line2, "{id: %ld, label: \'%s\', color: \'#99ff99\'},\n", 
-	    ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
+    sprintf(line2, "{id: %lld, label: \'%s\', color: \'#99ff99\'},\n", 
+	    (unsigned long long) ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
     line.assign(line2);
     gg_vis_file.write(line.c_str(), line.size());
   }
   // Write out 2 observation nodes.
   for(ii=1; ii<3; ii++){
-    sprintf(line2, "{id: %ld, label: \'%s\', color: \'#ff9999\'},\n", 
-	    ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
+    sprintf(line2, "{id: %lld, label: \'%s\', color: \'#ff9999\'},\n", 
+	    (unsigned long long) ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
     line.assign(line2);
     gg_vis_file.write(line.c_str(), line.size());
   }
   // Write out hidden nodes. 
   for(ii=3; ii<num; ii++){
-    sprintf(line2, "{id: %ld, label: \'%s\'},\n", 
-	    ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
+    sprintf(line2, "{id: %lld, label: \'%s\'},\n", 
+	    (unsigned long long) ga->returnNode(ii)->returnId(), ga->returnNode(ii)->returnProperty().c_str());
     line.assign(line2);
     gg_vis_file.write(line.c_str(), line.size());
   }
@@ -252,8 +252,8 @@ int GanitaGraphFile::writeVisTablesForAdic(GanitaGraph *ga)
   for(ii=0; ii<num; ii++){
     for(jj=0; jj<ga->returnNode(ii)->returnNumEdges(); jj++){
       ga->returnNode(ii)->returnEdge(jj, myedge);
-      sprintf(line2, "{from: %ld, to: \'%ld\'},\n", 
-	      ga->returnNode(ii)->returnId(), myedge.returnValue());
+      sprintf(line2, "{from: %lld, to: \'%lld\'},\n", 
+	      (unsigned long long) ga->returnNode(ii)->returnId(), (unsigned long long) myedge.returnValue());
       line.assign(line2);
       gg_vis_file.write(line.c_str(), line.size());
     }
