@@ -853,9 +853,10 @@ int GanitaBuffer::close(void)
 {
   int count;
   count = 0;
-  if (!gzt_output_file){
+  if (gzt_output_file.is_open()){
     // write out remaining bytes in output buffer
     //cout<<"Closing output file."<<endl;
+    //cout<<"Output buf offset: "<<out_buf_offset<<endl;
     gzt_output_file.write((char *)out_byte_value,out_buf_offset);
     gzt_output_file.close();
     count++;
