@@ -2,6 +2,7 @@
 
 GanitaBuffer::GanitaBuffer(void)
 {
+  verbose = 0;
   file_loc = 0;
   buffer_num = 0;
   buffer_start = 0;
@@ -18,6 +19,34 @@ GanitaBuffer::GanitaBuffer(void)
   inout_fixed_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
   inout_buf_size = inout_fixed_buf_size;
   file_name[0] = '\0';
+}
+
+// vv is the verbosity level.
+GanitaBuffer::GanitaBuffer(int vv)
+{
+  verbose = vv;
+  file_loc = 0;
+  buffer_num = 0;
+  buffer_start = 0;
+  byte_loc = 0;
+  fixed_buffer_size = GANITA_DEFAULT_BUFFER_SIZE;
+  buffer_size = fixed_buffer_size;
+  out_buf_size = GANITA_DEFAULT_OUTPUT_BUFFER_SIZE;
+  //cout<<"Out buf size: "<<out_buf_size<<endl;
+  buf_read_flag = 0;
+  //gzt_input_file = new std::ifstream();
+  outByte = 0;
+  outByteOffset = 0;
+  out_buf_offset = 0;
+  inout_fixed_buf_size = GANITA_DEFAULT_INOUT_BUFFER_SIZE;
+  inout_buf_size = inout_fixed_buf_size;
+  file_name[0] = '\0';
+}
+
+int GanitaBuffer::setVerbosity(int vv)
+{
+  verbose = vv;
+  return(vv);
 }
 
 // GanitaBuffer::GanitaBuffer(std::ifstream gzt_file)
@@ -74,7 +103,7 @@ unsigned char GanitaBuffer::getByte(uint64_t loc)
   if((loc < buffer_start) || (loc >= buffer_start + buffer_size))
     {
       // Need to read a new buffer
-      //cout<<"Read new buffer "<<loc<<" "<<buffer_start<<"\n";
+      if(verbose) cout<<"Read new buffer "<<loc<<" "<<buffer_start<<"\n";
       buffer_num = loc / fixed_buffer_size;
       buffer_start = buffer_num * fixed_buffer_size;
       byte_loc = file_loc - buffer_start;

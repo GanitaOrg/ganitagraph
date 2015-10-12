@@ -61,6 +61,7 @@ static const uint64_t ganita64_mask[] = {
 class GanitaBuffer
 {
 private:
+  int verbose;
   uint64_t file_loc;
   uint64_t buffer_num;
   uint64_t byte_loc;
@@ -88,7 +89,9 @@ private:
   char file_name[500];
 public:
   GanitaBuffer();
+  GanitaBuffer(int vv);
   //GanitaBuffer(std::ifstream gzt_file);
+  int setVerbosity(int vv);
   unsigned char getByte(uint64_t loc);
   double getDouble(uint64_t loc);
   unsigned char getInOutByte(uint64_t loc);
