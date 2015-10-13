@@ -170,6 +170,51 @@ double GanitaBuffer::getDouble(uint64_t loc)
   return(val);
 }
 
+// This retrieves doubles from a binary file. 
+// Format is 64 bits for index value, followed 
+// by 64 bits for the double value. 
+double GanitaBuffer::getDoubleText(uint64_t loc)
+{
+  uint64_t loc2;
+  double val;
+
+  loc2 = 8 * loc;
+  if(loc2 >= file_size){
+    cout<<"Location beyond file end: "<<loc2<<" >= "<<file_size<<endl;
+    loc %= file_size/8;
+    loc2 = 8 * loc;
+  }
+  if(buf_read_flag <= 0){
+    std::cout<<"Did not open input file."<<std::endl;
+    return(0);
+  }
+
+  file_loc = loc2;
+  if((loc2 < buffer_start) || (loc2 + 8 >= buffer_start + buffer_size))
+    {
+      // Need to read a new buffer
+      //cout<<"Read new buffer "<<loc<<" "<<buffer_start<<"\n";
+      buffer_num = loc2 / fixed_buffer_size;
+      buffer_start = file_loc;
+      byte_loc = 0;
+      gzt_input_file.seekg(0, gzt_input_file.beg);
+      gzt_input_file.seekg(buffer_start);
+      if(buffer_start + buffer_size >= file_size){
+	buffer_size = file_size - buffer_start;
+      }
+      else buffer_size = fixed_buffer_size;
+      gzt_input_file.read((char *) byte_value,buffer_size);
+      sscanf((char *)byte_value, "%lf,", &val);
+    }
+  else {
+    // Get double from current buffer
+    byte_loc = file_loc - buffer_start;
+    sscanf((char *)byte_value + byte_loc, "%lf,", &val);
+  }
+
+  return(val);
+}
+
 // Could be most important method in this class. 
 // Used to read from input file and 
 // do automatic buffering in memory. 
@@ -728,6 +773,32 @@ uint64_t GanitaBuffer::writeDouble(double myd)
   // save double to output buffer
   //out_byte_value[out_buf_offset] = mybyte;
   memcpy(out_byte_value, &myd, sizeof(double));
+  out_buf_offset += 8;
+  outByte = 0;
+  outByteOffset = 0;
+  if(out_buf_offset >= out_buf_size){
+    // save output buffer to file
+    gzt_output_file.write((char *)out_byte_value,out_buf_size);
+    out_buf_offset = 0;
+  }
+
+  return(out_buf_offset);
+}
+
+// Warning: out_buf_size should be a multiple of 8. 
+uint64_t GanitaBuffer::writeDoubleText(double myd)
+{
+  // save double to output buffer
+  //uint64_t ii;
+  //out_byte_value[out_buf_offset] = mybyte;
+  snprintf((char *)&out_byte_value[out_buf_offset], 8, "%7.4f", myd);
+  out_byte_value[out_buf_offset+7] = ',';
+  //memcpy(&out_byte_value[out_buf_offset], &myd, sizeof(double));
+  //cout<<"Double: ";
+  //for(ii=0; ii<8; ii++){
+  //  cout<<out_byte_value[out_buf_offset+ii];
+  //}
+  //cout<<endl;
   out_buf_offset += 8;
   outByte = 0;
   outByteOffset = 0;

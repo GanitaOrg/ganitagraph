@@ -94,6 +94,7 @@ public:
   int setVerbosity(int vv);
   unsigned char getByte(uint64_t loc);
   double getDouble(uint64_t loc);
+  double getDoubleText(uint64_t loc);
   unsigned char getInOutByte(uint64_t loc);
   uint64_t getBit(uint64_t loc);
   uint64_t getInOutBit(uint64_t loc);
@@ -116,6 +117,7 @@ public:
   uint64_t writeBit(unsigned char bit);
   uint64_t writeByte(unsigned char mybyte);
   uint64_t writeDouble(double myd);
+  uint64_t writeDoubleText(double myd);
   uint64_t writeByteInOut(unsigned char mybyte, uint64_t pos);
   uint64_t writeU64InOut(uint64_t dd, uint64_t pos);
   uint64_t write64InOut(int64_t dd, uint64_t pos);
