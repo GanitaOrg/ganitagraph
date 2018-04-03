@@ -103,6 +103,7 @@ public:
   int compareBits(uint64_t loc, uint64_t bb, int len);
   uint64_t countBitPat(uint64_t refpat, int len);
   int64_t getLine(char *line);
+  int64_t getLine(string& nextline);
   uint64_t size();
   uint64_t open(char *input_file);
   uint64_t openDoubleLine(char *input_file);

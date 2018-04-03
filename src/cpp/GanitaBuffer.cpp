@@ -352,6 +352,32 @@ int64_t GanitaBuffer::getLine(char *line)
   return(strlen(line));
 }
 
+// Read input one line at a time from buffer.
+int64_t GanitaBuffer::getLine(string& nextline)
+{
+  char mychar;
+  uint64_t loc;
+
+  loc = file_loc;
+  //cout<<"File size = "<<file_size<<endl;;
+
+  while(loc < file_size){
+    mychar = getByte(loc); loc++;
+    nextline.push_back(mychar);
+    if(mychar == '\n'){
+      //cout<<"EOL"<<endl;
+      break;
+    }
+  }
+
+  file_loc = loc;
+  if(loc >= file_size){
+    return(-1);
+  }
+
+  return(loc);
+}
+
 uint64_t GanitaBuffer::size()
 {
   return(file_size);
