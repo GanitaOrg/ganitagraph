@@ -1,5 +1,6 @@
 #include <vector>
-#include <boost/shared_ptr.hpp>
+//#include <boost/shared_ptr.hpp>
+#include <memory>
 
 using namespace std;
 
