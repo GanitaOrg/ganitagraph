@@ -389,7 +389,9 @@ uint64_t GanitaBuffer::open(char *input_file)
   strcpy(file_name, input_file);
   gzt_input_file.open(input_file);
   if (!gzt_input_file.is_open()){
-    std::cout<<"Unable to open input file: "<<input_file<<std::endl;
+    if(verbose > 0){
+      std::cout<<"Unable to open input file: "<<input_file<<std::endl;
+    }
     return(0);
   }
 
