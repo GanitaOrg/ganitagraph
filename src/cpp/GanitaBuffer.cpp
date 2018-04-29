@@ -1032,6 +1032,7 @@ uint64_t GanitaBuffer::setFileLocation(uint64_t floc)
 int GanitaBuffer::rewindFile(void)
 {
   file_loc = 0;
+  gzt_input_file.clear();
 
   return(0);
 }
