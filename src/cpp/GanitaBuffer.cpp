@@ -1022,3 +1022,17 @@ int GanitaBuffer::flushInOut(void)
   else return(-1);
 }
 
+uint64_t GanitaBuffer::setFileLocation(uint64_t floc)
+{
+  file_loc = floc;
+
+  return(file_loc);
+}
+
+int GanitaBuffer::rewindFile(void)
+{
+  file_loc = 0;
+
+  return(0);
+}
+

@@ -134,6 +134,8 @@ public:
   uint64_t inOutSize(void);
   int flushInOut(void);
   char *returnFileName(void);
+  uint64_t setFileLocation(uint64_t floc);
+  int rewindFile(void);
 };
 
 #endif
