@@ -359,7 +359,10 @@ int64_t GanitaBuffer::getLine(string& nextline)
   uint64_t loc;
 
   loc = file_loc;
-  //cout<<"File size = "<<file_size<<endl;;
+  //cout<<"File size = "<<file_size<<" Location = "<<loc<<endl;
+  if(loc >= file_size){
+    return(-1);
+  }
 
   while(loc < file_size){
     mychar = getByte(loc); loc++;
@@ -372,7 +375,7 @@ int64_t GanitaBuffer::getLine(string& nextline)
 
   file_loc = loc;
   if(loc >= file_size){
-    return(-1);
+    return(0);
   }
 
   return(loc);
