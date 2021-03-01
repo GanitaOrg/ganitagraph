@@ -146,9 +146,9 @@ int GanitaGraphFile::close(void)
 
 int GanitaGraphFile::writeVisTables(GanitaGraph *ga)
 {
-  char vis_file[] = "/var/www/html/graph/graph1.html";
+  char vis_file[] = "graph1.html";
   std::fstream gg_vis_file;
-  const char dir_path[] = "/var/www/html/graph";
+  const char dir_path[] = "./";
   mkdir(dir_path, S_IRUSR | S_IWUSR | S_IXUSR);
   gg_vis_file.open(vis_file, ios::in | ios::out | ios::binary | ios::trunc);
   if (!gg_vis_file.is_open()){
