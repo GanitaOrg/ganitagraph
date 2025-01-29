@@ -10,6 +10,7 @@
 #ifndef _GANITABUFFER_
 #define _GANITABUFFER_
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <iostream>

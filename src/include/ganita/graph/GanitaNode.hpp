@@ -2,6 +2,7 @@
 #ifndef _GANITANODE_
 #define _GANITANODE_
 
+#include <cstdint>
 #include <iostream>
 #include <fstream>
 #include <string>

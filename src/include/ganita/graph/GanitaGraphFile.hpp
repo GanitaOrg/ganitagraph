@@ -3,6 +3,7 @@
 #ifndef _GANITAGRAPHFILE_
 #define _GANITAGRAPHFILE_
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include <iostream>

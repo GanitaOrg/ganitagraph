@@ -3,6 +3,7 @@
 #ifndef _GANITAEDGE_
 #define _GANITAEDGE_
 
+#include <cstdint>
 #include <iostream>
 #include <fstream>
 #include <string>

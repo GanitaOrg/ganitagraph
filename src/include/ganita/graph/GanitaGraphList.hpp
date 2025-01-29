@@ -1,3 +1,4 @@
+#include <cstdint>
 #include "ganita/graph/GanitaGraph.hpp"
 //#include "ganita/graph/GanitaNode.hpp"
 
